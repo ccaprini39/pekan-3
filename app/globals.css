@@ -25,3 +25,13 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.h-80-percent {
+  height: 85%;
+  max-height: 85%;
+  overflow-y: auto;
+}
+
+.h-20-percent {
+  height: 15%;
+}
