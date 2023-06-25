@@ -70,7 +70,7 @@ export function Chat() {
           <textarea
             className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 h-full"
             name="message"
-            rows={4}
+            rows={3}
             value={input}
             onChange={handleInputChange}
             placeholder="type a message"
