@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useChat } from "ai/react";
 import { Message } from "ai";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-import {atomDark, dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { atomDark, dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from "rehype-highlight/lib";
 
@@ -28,7 +28,7 @@ export function Chat() {
   useEffect(() => {
     async function updateSystemMessage() {
       setLoading(true);
-      const newSystemMessage : Message = {
+      const newSystemMessage: Message = {
         id: 'something',
         role: 'system',
         content: systemMessageContent,
@@ -42,29 +42,34 @@ export function Chat() {
       //reload();
     }
     (systemMessageContent !== defaultMessage) && updateSystemMessage();
-  },[systemMessageContent])
+  }, [systemMessageContent])
 
 
   if (loading) return <p>loading...</p>
   return (
-    <div className="w-7/8 h-full max-h-full">
-      <input 
-          className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 h-10"
+    <div className="flex flex-col w-7/8 h-full ">
+      <div
+        className="h-10"
+      >
+        <input
+          className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
           type="text"
           value={systemMessageContent}
           onChange={(e) => setSystemMessageContent(e.target.value)}
         />
-      <div className="h-80-percent"> 
+      </div>
+      <div className="flex-1 overflow-y-auto">
         {messages.length > 0 && messages.map((message, index) => {
           //check if it it is the last message
           let last = false;
           if (index === messages.length - 1) last = true;
           return (
-            <ChatText key={index} message={message} last={last}/>
-          )})
+            <ChatText key={index} message={message} last={last} />
+          )
+        })
         }
       </div>
-      <div className="h-20-percent">
+      <div>
         <form className="relative p-5" onSubmit={handleSubmit}>
           <textarea
             className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 h-full"
@@ -103,7 +108,7 @@ export function ChatText({ message, last }: { message: Message, last: boolean })
   if (message.role === 'system') return <div></div>
   else if (message.role === 'user') {
     return (
-      <div 
+      <div
         ref={ref}
         className="chat chat-end mx-5"
       >
@@ -120,7 +125,7 @@ export function ChatText({ message, last }: { message: Message, last: boolean })
     )
   } else if (message.role === 'assistant') {
     return (
-      <div 
+      <div
         ref={ref}
         className="chat chat-start mx-5"
       >
@@ -141,7 +146,7 @@ export function ChatText({ message, last }: { message: Message, last: boolean })
 }
 
 export function ChatContent({ text }: { text: string }) {
-  
+
   return (
     <ReactMarkdown
       children={text}
