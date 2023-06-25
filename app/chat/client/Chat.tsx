@@ -48,14 +48,13 @@ export function Chat() {
   if (loading) return <p>loading...</p>
   return (
     <div className="w-7/8 h-full max-h-full">
-      
-      <div className="h-80-percent">
-        <input 
+      <input 
           className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 h-10"
           type="text"
           value={systemMessageContent}
           onChange={(e) => setSystemMessageContent(e.target.value)}
         />
+      <div className="h-80-percent"> 
         {messages.length > 0 && messages.map((message, index) => {
           //check if it it is the last message
           let last = false;
