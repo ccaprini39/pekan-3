@@ -25,6 +25,12 @@ export function Chat() {
     localStorage.setItem('messages', JSON.stringify(messages));
   }
 
+  async function removeLastMessage() {
+    const messageClone = [...messages];
+    messageClone.pop();
+    setMessages(messageClone);
+  }
+
   async function loadMessagesFromLocalStorage() {
     const messages = localStorage.getItem('messages');
     if (messages) {
@@ -75,7 +81,13 @@ export function Chat() {
   }
 
   async function handleClearMessages() {
-    setMessages(initialMessages);
+    const newMessages: Message[] = [{
+      id: 'something',
+      role: 'system',
+      content: systemMessageContent,
+      createdAt: new Date()
+    }]
+    setMessages(newMessages);
   }
 
 
@@ -120,39 +132,51 @@ export function Chat() {
             Send
           </button>
         </form>
-        <div className="join float-left mx-5">
-          <button
-            className="btn btn-sm btn-info join-item mx-1 btn-outline "
-            onClick={saveMessagesToLocalStorage}
-          >
-            Save
-          </button>
-          <button
-            className="btn btn-sm btn-outline btn-warning join-item mx-1"
-            onClick={loadMessagesFromLocalStorage}
-          >
-            Load
-          </button>
-        </div>
-        <div className="join float-right mx-5">
-          <button
-            className="btn btn-sm btn-success join-item mx-1 btn-outline "
-            onClick={handleReload}
-          >
-            Reload
-          </button>
-          <button
-            className="btn btn-sm btn-outline btn-error join-item mx-1"
-            onClick={handleStop}
-          >
-            Stop
-          </button>
-          <button
-            className="btn btn-sm btn-info join-item mx-1 btn-outline"
-            onClick={handleClearMessages}
-          >
-            Clear
-          </button>
+        <div className="flex flex-row justify-center">
+
+
+          <div className="join float-left mx-5">
+            <button
+              className="btn btn-sm btn-info join-item mx-1 btn-outline "
+              onClick={saveMessagesToLocalStorage}
+            >
+              Save
+            </button>
+            <button
+              className="btn btn-sm btn-outline btn-warning join-item mx-1"
+              onClick={loadMessagesFromLocalStorage}
+            >
+              Load
+            </button>
+          </div>
+          <div className="join mx-auto">
+            <button
+              className="btn btn-sm btn-outline join-item mx-1"
+              onClick={removeLastMessage}
+            >
+              Remove Last Message
+            </button>
+            <button
+              className="btn btn-sm btn-info join-item mx-1 btn-outline"
+              onClick={handleClearMessages}
+            >
+              Clear
+            </button>
+          </div>
+          <div className="join float-right mx-5">
+            <button
+              className="btn btn-sm btn-success join-item mx-1 btn-outline "
+              onClick={handleReload}
+            >
+              Reload
+            </button>
+            <button
+              className="btn btn-sm btn-outline btn-error join-item mx-1"
+              onClick={handleStop}
+            >
+              Stop
+            </button>
+          </div>
         </div>
       </div>
     </div>
