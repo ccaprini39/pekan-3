@@ -20,6 +20,27 @@ export function Chat() {
       createdAt: new Date()
     }
   ]
+
+  async function saveMessagesToLocalStorage() {
+    localStorage.setItem('messages', JSON.stringify(messages));
+  }
+
+  async function loadMessagesFromLocalStorage() {
+    const messages = localStorage.getItem('messages');
+    if (messages) {
+      const messagesObject = JSON.parse(messages);
+      const index = messagesObject.findIndex((message: Message) => message.role === 'system');
+      const remappedMessages = messagesObject.map((message: Message) => {
+        if (typeof message.createdAt === 'string') {
+          message.createdAt = new Date(message.createdAt);
+        }
+        return message;
+      })
+      setSystemMessageContent(messagesObject[index].content);
+      setMessages(remappedMessages);
+    }
+  }
+
   const { messages, input, handleInputChange, handleSubmit, reload, stop, setMessages } = useChat({ initialMessages });
   const [loading, setLoading] = useState(false);
 
@@ -43,6 +64,19 @@ export function Chat() {
     }
     (systemMessageContent !== defaultMessage) && updateSystemMessage();
   }, [systemMessageContent])
+
+  async function handleReload() {
+    stop();
+    await reload();
+  }
+
+  async function handleStop() {
+    stop();
+  }
+
+  async function handleClearMessages() {
+    setMessages(initialMessages);
+  }
 
 
   if (loading) return <p>loading...</p>
@@ -70,7 +104,7 @@ export function Chat() {
         }
       </div>
       <div>
-        <form className="relative p-5" onSubmit={handleSubmit}>
+        <form className="relative px-5" onSubmit={handleSubmit}>
           <textarea
             className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 h-full"
             name="message"
@@ -86,6 +120,40 @@ export function Chat() {
             Send
           </button>
         </form>
+        <div className="join float-left mx-5">
+          <button
+            className="btn btn-sm btn-info join-item mx-1 btn-outline "
+            onClick={saveMessagesToLocalStorage}
+          >
+            Save
+          </button>
+          <button
+            className="btn btn-sm btn-outline btn-warning join-item mx-1"
+            onClick={loadMessagesFromLocalStorage}
+          >
+            Load
+          </button>
+        </div>
+        <div className="join float-right mx-5">
+          <button
+            className="btn btn-sm btn-success join-item mx-1 btn-outline "
+            onClick={handleReload}
+          >
+            Reload
+          </button>
+          <button
+            className="btn btn-sm btn-outline btn-error join-item mx-1"
+            onClick={handleStop}
+          >
+            Stop
+          </button>
+          <button
+            className="btn btn-sm btn-info join-item mx-1 btn-outline"
+            onClick={handleClearMessages}
+          >
+            Clear
+          </button>
+        </div>
       </div>
     </div>
   )
