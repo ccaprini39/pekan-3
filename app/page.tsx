@@ -1,9 +1,9 @@
 'use client'
 // import { Excalidraw } from "@excalidraw/excalidraw";
-import { useEffect, useState } from "react";
+import { MemoExoticComponent, useEffect, useState } from "react";
 
 export default function Home() {
-  const [Excalidraw, setExcalidraw] = useState(null);
+  const [Excalidraw, setExcalidraw] = useState<any>(null);
   useEffect(() => {
     import("@excalidraw/excalidraw").then((comp) => setExcalidraw(comp.Excalidraw));
   }, []);
