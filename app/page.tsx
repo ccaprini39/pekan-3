@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="h-screen">
 
-      <div className=" h-1/2">
+      <div className="h-full">
         <BasicExcalidraw />
       </div>
 
