@@ -26,6 +26,10 @@ export default function DebugExcalidraw() {
     else alert('error')
   }
 
+  async function loadNoteFromDb(){
+
+  }
+
   function getInitialData() {
     if (elements.length > 0) {
       if (state) {
@@ -42,7 +46,7 @@ export default function DebugExcalidraw() {
 
   return (
     <div className="h-full w-full">
-      <div className="h-1/2">
+      <div className="h-full">
         <button className='btn-square' onClick={saveNoteToDb}>Save</button>
         {Excalidraw && 
           <Excalidraw 
@@ -56,7 +60,7 @@ export default function DebugExcalidraw() {
           />
         }
       </div>
-      <div className="h-1/2 p-5 overflow-y-auto">
+      <div className=" hidden p-5 overflow-y-auto">
         <pre>
           {JSON.stringify(elements, null, 2)}
         </pre>
