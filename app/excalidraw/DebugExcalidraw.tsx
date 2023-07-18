@@ -1,17 +1,66 @@
 'use client'
+import { useLocalStorage } from "@mantine/hooks";
 import { useEffect, useState } from "react";
+import { NoteObject, saveNote } from "../api/data-management/db-notes";
 
 export default function DebugExcalidraw() {
+
   const [Excalidraw, setExcalidraw] = useState<any>(null);
+  const [elements, setElements] = useLocalStorage({ key : 'localElements', defaultValue : []});
+  const [state, setState] = useLocalStorage<any>({ key : 'localState', defaultValue : {zenModeEnabled: true, viewBackgroundColor: "#a5d8ff"}});
+
+
   useEffect(() => {
     import("@excalidraw/excalidraw").then((comp) => setExcalidraw(comp.Excalidraw));
   }, []);
 
+  async function saveNoteToDb(){
+    const defaultUser = 'rec_cir8vbtpf9tn4kjf14p0'
+    const note : NoteObject = {
+      user: defaultUser,
+      title: 'test note',
+      note: JSON.stringify(elements)
+    }
+    const result = await saveNote(note)
+    if (result === true) alert('saved')
+    else alert('error')
+  }
+
+  function getInitialData() {
+    if (elements.length > 0) {
+      if (state) {
+        console.log(state)
+        if (state.collaborators) {
+          //set state collaborators to empty array
+          state.collaborators = []
+        }
+        return { elements, appState: state, scrollToContent: true }
+      }
+      return { elements}
+    }
+  }
+
   return (
     <div className="h-full w-full">
-      <>
-        {Excalidraw && <Excalidraw theme="dark" />}
-      </>
+      <div className="h-1/2">
+        <button className='btn-square' onClick={saveNoteToDb}>Save</button>
+        {Excalidraw && 
+          <Excalidraw 
+            initialData={getInitialData()}
+            onChange={
+              (elements: any[], state: any) => {
+                setElements(elements as any) 
+                setState(state as any)}
+            }
+            theme="dark" 
+          />
+        }
+      </div>
+      <div className="h-1/2 p-5 overflow-y-auto">
+        <pre>
+          {JSON.stringify(elements, null, 2)}
+        </pre>
+      </div>
     </div>
   )
 }
