@@ -33,7 +33,7 @@ export async function createSpeech(text: string) {
     'nova', //computer sounding worman
     'shimmer', //strong sounding female, slightly robotic
   ]
-  const speechFile = path.resolve(process.cwd(), getTempDirectory(), 'new-speech-2.mp3')
+  const speechFile = path.resolve(getTempDirectory(), 'new-speech-2.mp3')
   const mp3 = await openai.audio.speech.create({
     model: "tts-1",
     voice: "alloy",
@@ -48,7 +48,7 @@ export async function createSpeech(text: string) {
 //the file will have been created with the createSpeech function
 export async function serveSpeech(filename: string) {
   try {
-    const speechFile = path.resolve(process.cwd() + getTempDirectory() + "/" + filename);
+    const speechFile = path.resolve(getTempDirectory() + "/" + filename);
     const stream = fs.createReadStream(speechFile);
     const chunks: any[] = [];
     for await (const chunk of stream) {
@@ -59,7 +59,7 @@ export async function serveSpeech(filename: string) {
     return `data:audio/mpeg;base64,${base64}`;
   } catch (error) {
     console.log(error);
-    const speechFile = path.resolve(process.cwd() + getTempDirectory() + "/new-speech.mp3");
+    const speechFile = path.resolve(getTempDirectory() + "/new-speech.mp3");
     const stream = fs.createReadStream(speechFile);
     const chunks: any[] = [];
     for await (const chunk of stream) {
