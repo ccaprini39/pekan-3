@@ -25,6 +25,14 @@ export async function getSpeech() {
 }
 
 export async function createSpeech(text: string) {
+  const options = [
+    'alloy', //female
+    'echo', //soft beta male
+    'fable', //androgynous brit
+    'onyx', //strong man
+    'nova', //computer sounding worman
+    'shimmer', //strong sounding female, slightly robotic
+  ]
   const speechFile = path.resolve(process.cwd(), 'new-speech-2.mp3')
   const mp3 = await openai.audio.speech.create({
     model: "tts-1",

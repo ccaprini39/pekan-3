@@ -4,7 +4,13 @@ import { useState, useEffect } from 'react'
 import { createSpeech, getSpeech, serveSpeech } from './server-components'
 
 export default function SpeechPage() {
-  const [speechText, setSpeechText] = useState('Here is some speech')
+  const cioran = `It is no nation that we inhabit, but a language. Make no mistake; our native tongue is our true fatherland.
+Words are what keeps our world alive.
+Conquer the world not by taking mens lives, but by taking their tongues.
+Everything is stolen from them; their country, their family, their identity.  
+Words can kill.
+  `
+  const [speechText, setSpeechText] = useState(cioran)
   const [speechUrl, setSpeechUrl] = useState('/speech.mp3')
   const [loading, setLoading] = useState(false)
 
@@ -20,7 +26,7 @@ export default function SpeechPage() {
 
   return (
     <div
-      className='m-2' 
+      className='m-2'
     >
       <h1>Speech</h1>
       <textarea
