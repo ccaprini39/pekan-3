@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { createSpeech, getSpeech, serveSpeech } from './server-components'
+import { createSpeech, serveSpeech } from './server-components'
 
 export default function SpeechPage() {
   const cioran = `It is no nation that we inhabit, but a language. Make no mistake; our native tongue is our true fatherland.
