@@ -12,7 +12,7 @@ const openai = new OpenAI();
 
 function getTempDirectory() {
   if (process.env.VERCEL || process.env.NOW_REGION) {
-    return '/tmp';
+    return '/tmp/';
   }
   // For local development, check the OS
   if (os.platform() === 'win32') {
@@ -20,7 +20,7 @@ function getTempDirectory() {
     return '';
   } else {
     // Unix-like systems (Linux, macOS)
-    return '/tmp';
+    return '/tmp/';
   }
 }
 
