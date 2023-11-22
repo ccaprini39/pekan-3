@@ -24,7 +24,8 @@ function getTempDirectory() {
   }
 }
 
-export async function createSpeech(text: string) {
+type Voice = "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer";
+export async function createSpeech(text: string, inputVoice: Voice) {
   const options = [
     'alloy', //female
     'echo', //soft beta male
@@ -37,7 +38,7 @@ export async function createSpeech(text: string) {
   console.log('here in the create speech function')
   const mp3 = await openai.audio.speech.create({
     model: "tts-1",
-    voice: "alloy",
+    voice: inputVoice,
     input: text,
   });
   console.log(speechFile);

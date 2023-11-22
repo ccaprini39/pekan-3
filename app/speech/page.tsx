@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { createSpeech, serveSpeech } from './server-components'
 
 export default function SpeechPage() {
+  type Voice = "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer";
   const cioran = `It is no nation that we inhabit, but a language. Make no mistake; our native tongue is our true fatherland.
 Words are what keeps our world alive.
 Conquer the world not by taking mens lives, but by taking their tongues.
@@ -13,10 +14,19 @@ Words can kill.
   const [speechText, setSpeechText] = useState(cioran)
   const [speechUrl, setSpeechUrl] = useState('/speech.mp3')
   const [loading, setLoading] = useState(false)
+  const [selectedVoice, setSelectedVoice] = useState<Voice>('alloy')
+  const voiceOptions = [
+    'alloy', //female
+    'echo', //soft beta male
+    'fable', //androgynous brit
+    'onyx', //strong man
+    'nova', //computer sounding worman
+    'shimmer', //strong sounding female, slightly robotic
+  ]
 
   async function handleGetSpeech() {
     setLoading(true)
-    await createSpeech(speechText)
+    await createSpeech(speechText, selectedVoice)
     const dataUrl = await serveSpeech('new-speech-2.mp3')
     setSpeechUrl(dataUrl)
     console.log('got speech')
@@ -29,6 +39,22 @@ Words can kill.
       className='m-2'
     >
       <h1>Speech</h1>
+      <select
+        className='border border-gray-400 rounded'
+        value={selectedVoice}
+        onChange={e => setSelectedVoice((e.target.value) as Voice)}
+      >
+        {
+          voiceOptions.map(voice => (
+            <option
+              key={voice}
+              value={voice}
+            >
+              {voice}
+            </option>
+          ))
+        }
+      </select>
       <textarea
         className='border border-gray-400 rounded w-full h-64'
         value={speechText}
