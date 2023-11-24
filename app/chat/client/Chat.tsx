@@ -8,7 +8,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark, dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from "rehype-highlight/lib";
-import { ReusableAudioComponent } from "@/app/speech/page";
+import { AudioComponent } from "@/app/components/AudioComponent";
 
 export function Chat() {
 
@@ -267,9 +267,8 @@ export function ChatText({ message, last, inProgress, autoPlay }: { message: Mes
         <div className="chat-footer opacity-50">
           {message.createdAt?.toDateString()}
           {!inProgress &&
-            <ReusableAudioComponent
+            <AudioComponent
               string={message.content}
-              ref={secondRef}
               voice='alloy'
               filename='new-speech-3.mp3'
               defaultOpen={last && autoPlay}
