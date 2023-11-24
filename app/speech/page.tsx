@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { createSpeech, serveSpeech } from './server-components'
+import { createSpeech, createSpeechWithFilename, serveSpeech } from './server-components'
+
+type Voice = "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer";
 
 export default function SpeechPage() {
-  type Voice = "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer";
+
   const cioran = `It is no nation that we inhabit, but a language. Make no mistake; our native tongue is our true fatherland.
 Words are what keeps our world alive.
 Conquer the world not by taking mens lives, but by taking their tongues.
@@ -74,6 +76,84 @@ Words can kill.
             <source src={speechUrl} type='audio/mpeg' />
           </audio>
       }
+
+      <br />
+
+      <h1>Reusable Audio Component</h1>
+      <ReusableAudioComponent
+        string='here is something else I have written for my own amusement'
+        voice='alloy'
+        filename='new-speech-3.mp3'
+        defaultOpen={true}
+        autoPlay={false}
+      />
+    </div>
+  )
+}
+
+export function ReusableAudioComponent({ string, voice, filename, defaultOpen, autoPlay, ref }: { string: string, voice: Voice, filename: string, defaultOpen: boolean, autoPlay: boolean,  }) {
+
+  const [speechUrl, setSpeechUrl] = useState('/speech.mp3')
+  const [loading, setLoading] = useState(true)
+  const [open, setOpen] = useState(defaultOpen)
+
+  useEffect(() => {
+    async function loadAudio() {
+      await createSpeechWithFilename(string, voice, filename)
+      const dataUrl = await serveSpeech(filename)
+      setSpeechUrl(dataUrl)
+      setLoading(false)
+    }
+    setLoading(true)
+    open && loadAudio()
+  }, [open])
+
+  useEffect(() => {
+    if (!loading && autoPlay) {
+      const audio = document.getElementById('audio') as HTMLAudioElement
+      audio.play()
+    }
+  }, [loading, autoPlay])
+
+  //character for the up arrow
+  const upArrow = '\u25B2'
+  //character for the down arrow
+  const downArrow = '\u25BC'
+
+  return (
+    <div
+      ref={ref}
+      className='flex flex-row h-8'
+    >
+      {open &&
+        <button
+          className='bg-grey-500 hover:bg-grey-700 text-white font-bold rounded shadow focus:outline-none focus:shadow-outline'
+          onClick={() => setOpen(false)}
+        >
+        {upArrow}
+        </button>
+      }
+      {!open &&
+        <button
+          className='bg-grey-500 hover:bg-grey-700 text-white font-bold rounded shadow focus:outline-none focus:shadow-outline'
+          onClick={() => setOpen(true)}
+        >
+          {downArrow}
+        </button>
+      }
+
+      {
+        open && loading &&
+        <div>Loading...</div>
+      }
+
+      {
+        open && !loading &&
+        <audio className='h-12' id='audio' controls>
+          <source src={speechUrl} type='audio/mpeg' />
+        </audio>
+      }
+
     </div>
   )
 }

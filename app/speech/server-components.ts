@@ -26,14 +26,6 @@ function getTempDirectory() {
 
 type Voice = "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer";
 export async function createSpeech(text: string, inputVoice: Voice) {
-  const options = [
-    'alloy', //female
-    'echo', //soft beta male
-    'fable', //androgynous brit
-    'onyx', //strong man
-    'nova', //computer sounding worman
-    'shimmer', //strong sounding female, slightly robotic
-  ]
   const speechFile = path.resolve(getTempDirectory(), 'new-speech-2.mp3')
   console.log('here in the create speech function')
   const mp3 = await openai.audio.speech.create({
@@ -46,11 +38,31 @@ export async function createSpeech(text: string, inputVoice: Voice) {
   await fs.promises.writeFile(speechFile, buffer);
 }
 
+//making another function to create a speech file but it also generates and returns a file name
+export async function createSpeechWithFilename(text: string, inputVoice: Voice, filename: string) {
+  const speechFile = path.resolve(getTempDirectory(), filename)
+  console.log('here in the create speech function')
+  const mp3 = await openai.audio.speech.create({
+    model: "tts-1",
+    voice: inputVoice,
+    input: text,
+  });
+  console.log(speechFile);
+  const buffer = Buffer.from(await mp3.arrayBuffer());
+  await fs.promises.writeFile(speechFile, buffer);
+  return filename;
+}
+
 //this will take an mp3 file name, find the corresponding file, and serve it
 //the file will have been created with the createSpeech function
 export async function serveSpeech(filename: string) {
   try {
     console.log('here in the serve speech function')
+    console.log(filename);
+    //check to see if filename starts with / and if it does not, add it
+    // if (filename.charAt(0) != '/') {
+    //   filename = '/' + filename;
+    // }
     const speechFile = path.resolve(getTempDirectory() + filename);
     const stream = fs.createReadStream(speechFile);
     const chunks: any[] = [];

@@ -1,30 +1,32 @@
-import { StreamingTextResponse, LangChainStream, Message } from 'ai'
-import { ChatOpenAI } from 'langchain/chat_models/openai'
-import { SystemChatMessage, AIChatMessage, HumanChatMessage } from 'langchain/schema'
+import { StreamingTextResponse, OpenAIStream } from "ai";
+import { Configuration, OpenAIApi } from "openai-edge";
 
-export const runtime = 'edge'
+const config = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(config);
+
+const auth = `Bearer ${process.env.OPENAI_API_KEY}`;
+
+export const runtime = "edge";
 
 export async function POST(req: Request) {
-  const { messages } = await req.json()
+  const { messages } = await req.json();
+  try {
+    
+    const response = await openai.createChatCompletion({
+      model: "gpt-4-1106-preview",
+      stream: true,
+      messages: messages.map((message : any) => ({
+        content: message.content,
+        role: message.role,
+      })),
+    })
+    const stream = OpenAIStream(response);
+    return new StreamingTextResponse(stream);
+  } catch (error) {
+    console.log(error)
+    return 'error'
+  }
 
-  const { stream, handlers } = LangChainStream()
-
-  const llm = new ChatOpenAI({
-    modelName: 'gpt-4',
-    streaming: true,
-    callbacks: [handlers],
-    timeout: 20000,
-  })
-
-  llm
-    .call(
-      (messages as Message[]).map(m =>{
-        if (m.role == 'system') return new SystemChatMessage(m.content)
-        if (m.role == 'user') return new HumanChatMessage(m.content)
-        else return new AIChatMessage(m.content)
-      })
-    )
-    .catch(console.error)
-
-  return new StreamingTextResponse(stream)
 }

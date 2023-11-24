@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { useChat } from "ai/react";
 import { Message } from "ai";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
@@ -8,6 +8,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark, dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from "rehype-highlight/lib";
+import { ReusableAudioComponent } from "@/app/speech/page";
 
 export function Chat() {
 
@@ -47,8 +48,12 @@ export function Chat() {
     }
   }
 
-  const { messages, input, handleInputChange, handleSubmit, reload, stop, setMessages } = useChat({ initialMessages });
   const [loading, setLoading] = useState(false);
+  const [autoPlay, setAutoPlay] = useState(false);
+
+  const { messages, input, isLoading, handleInputChange, handleSubmit, reload, stop, setMessages } = useChat({
+    initialMessages
+  });
 
   const [systemMessageContent, setSystemMessageContent] = useState<string>(defaultMessage);
 
@@ -70,6 +75,11 @@ export function Chat() {
     }
     (systemMessageContent !== defaultMessage) && updateSystemMessage();
   }, [systemMessageContent])
+
+  useEffect(() => {
+    console.log('is loading: ', isLoading);
+  }, [isLoading])
+
 
   async function handleReload() {
     stop();
@@ -104,13 +114,29 @@ export function Chat() {
           onChange={(e) => setSystemMessageContent(e.target.value)}
         />
       </div>
+      <label className="w-full ml-5">
+        <input
+          className="mr-2 leading-tight"
+          type="checkbox"
+          checked={autoPlay}
+          onChange={() => setAutoPlay(!autoPlay)}
+        />
+        Play Audio
+      </label>
+
       <div className="flex-1 overflow-y-auto">
         {messages.length > 0 && messages.map((message, index) => {
           //check if it it is the last message
           let last = false;
           if (index === messages.length - 1) last = true;
           return (
-            <ChatText key={index} message={message} last={last} />
+            <ChatText
+              key={index}
+              message={message}
+              last={last}
+              inProgress={isLoading}
+              autoPlay={autoPlay}
+            />
           )
         })
         }
@@ -184,9 +210,11 @@ export function Chat() {
 }
 
 
-export function ChatText({ message, last }: { message: Message, last: boolean }) {
+export function ChatText({ message, last, inProgress, autoPlay }: { message: Message, last: boolean, inProgress: boolean, autoPlay: boolean }) {
 
   const ref = useRef<HTMLDivElement>(null);
+  //this is used to scroll to the audio component
+  const secondRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function scrollToBottom() {
@@ -194,8 +222,15 @@ export function ChatText({ message, last }: { message: Message, last: boolean })
       ref.current?.focus();
     }
     last && scrollToBottom();
-  }, [ref, message])
+  }, [ref, message, inProgress])
 
+  useEffect(() => {
+    function scrollToBottom() {
+      secondRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      secondRef.current?.focus();
+    }
+    last && autoPlay && scrollToBottom();
+  }, [secondRef, message, inProgress, autoPlay])
 
   if (message.role === 'system') return <div></div>
   else if (message.role === 'user') {
@@ -231,7 +266,18 @@ export function ChatText({ message, last }: { message: Message, last: boolean })
         </div>
         <div className="chat-footer opacity-50">
           {message.createdAt?.toDateString()}
+          {!inProgress &&
+            <ReusableAudioComponent
+              string={message.content}
+              ref={secondRef}
+              voice='alloy'
+              filename='new-speech-3.mp3'
+              defaultOpen={last && autoPlay}
+              autoPlay={last && autoPlay}
+            />
+          }
         </div>
+
       </div>
     )
   }
