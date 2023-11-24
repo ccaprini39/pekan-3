@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { createSpeechWithFilename, serveSpeech } from "../speech/server-components"
 
+type Voice = "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer";
+
 export function AudioComponent({ string, voice, filename, defaultOpen, autoPlay }: { string: string, voice: Voice, filename: string, defaultOpen: boolean, autoPlay: boolean}) {
 
   const [speechUrl, setSpeechUrl] = useState('/speech.mp3')
