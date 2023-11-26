@@ -9,6 +9,7 @@ import { atomDark, dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from "rehype-highlight/lib";
 import { AudioComponent } from "@/app/components/AudioComponent";
+import React from "react";
 
 export function Chat() {
 
@@ -264,7 +265,7 @@ export function ChatText({ message, last, inProgress, autoPlay }: { message: Mes
             <ChatContent text={message.content} />
           </div>
         </div>
-        <div className="chat-footer opacity-50">
+        <div className="chat-footer flex flex-row opacity-50">
           {message.createdAt?.toDateString()}
           {!inProgress &&
             <AudioComponent

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { createSpeechWithFilename, serveSpeech } from "../speech/server-components"
 
 type Voice = "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer";
 
-export function AudioComponent({ string, voice, filename, defaultOpen, autoPlay }: { string: string, voice: Voice, filename: string, defaultOpen: boolean, autoPlay: boolean}) {
+export function AudioComponent({ string, voice, filename, defaultOpen, autoPlay }: { string: string, voice: Voice, filename: string, defaultOpen: boolean, autoPlay: boolean }) {
 
   const [speechUrl, setSpeechUrl] = useState('/speech.mp3')
   const [loading, setLoading] = useState(true)
@@ -38,18 +38,19 @@ export function AudioComponent({ string, voice, filename, defaultOpen, autoPlay 
     >
       {open &&
         <button
-          className='bg-grey-500 hover:bg-grey-700 text-white font-bold rounded shadow focus:outline-none focus:shadow-outline'
+          className='bg-red-500 hover:bg-red-700 w-5 h-5 text-white font-bold rounded shadow focus:outline-none focus:shadow-outline'
           onClick={() => setOpen(false)}
         >
-        {upArrow}
+          x
         </button>
       }
       {!open &&
         <button
-          className='bg-grey-500 hover:bg-grey-700 text-white font-bold rounded shadow focus:outline-none focus:shadow-outline'
+          title="Click to open audio"
+          className='relative bg-grey-500 hover:bg-grey-700 w-5 h-5 text-white font-bold rounded shadow focus:outline-none focus:shadow-outline'
           onClick={() => setOpen(true)}
         >
-          {downArrow}
+          {">"}
         </button>
       }
 
@@ -60,11 +61,65 @@ export function AudioComponent({ string, voice, filename, defaultOpen, autoPlay 
 
       {
         open && !loading &&
-        <audio className='h-12' id='audio' controls>
-          <source src={speechUrl} type='audio/mpeg' />
-        </audio>
+        <MinimalistAudioComponent src={speechUrl} />
+
       }
 
     </div>
   )
+}
+
+function MinimalistAudioComponent({ src }: { src: string }) {
+  const audioRef = React.useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [duration, setDuration] = React.useState(0);
+  const [currentTime, setCurrentTime] = React.useState(0);
+
+  React.useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const onLoadedMetadata = () => setDuration(audio.duration);
+    const onEnded = () => setIsPlaying(false);
+    const onTimeUpdate = () => setCurrentTime(audio.currentTime);
+
+    audio.addEventListener('loadedmetadata', onLoadedMetadata);
+    audio.addEventListener('ended', onEnded);
+    audio.addEventListener('timeupdate', onTimeUpdate);
+
+    return () => {
+      audio.removeEventListener('loadedmetadata', onLoadedMetadata);
+      audio.removeEventListener('ended', onEnded);
+      audio.removeEventListener('timeupdate', onTimeUpdate);
+    };
+  }, []);
+
+  const togglePlayPause = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+
+    setIsPlaying(!isPlaying);
+  };
+
+  const onSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.currentTime = Number(e.target.value);
+    setCurrentTime(audio.currentTime);
+  };
+
+  return (
+    <div >
+      <button onClick={togglePlayPause}>{isPlaying ? 'Pause' : 'Play'}</button>
+      <input type="range" min="0" max={duration} value={currentTime} onChange={onSliderChange} />
+      <audio ref={audioRef} src={src} />
+    </div>
+  );
 }
