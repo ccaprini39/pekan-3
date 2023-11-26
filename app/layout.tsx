@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Pekan',
-  description: 'Mental health chatbot',
+  description: 'Some things',
 }
 
 export default async function RootLayout({

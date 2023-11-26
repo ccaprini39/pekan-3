@@ -12,6 +12,7 @@
     "@auth/xata-adapter": "^0.1.0",
     "@excalidraw/excalidraw": "^0.15.2",
     "@mantine/hooks": "^6.0.17",
+    "@mdxeditor/editor": "^1.11.2",
     "@types/node": "20.3.1",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
