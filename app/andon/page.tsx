@@ -2,13 +2,17 @@
 
 import React from "react";
 import BasicEditor from "../components/BasicEditor";
+import { BasicTimer } from "../components/Timer";
 
 export default function AndonPage() {
   return (
     <div 
       className="h-full w-full"
     >
-      <BasicEditor />
+      {/* <BasicEditor /> */}
+      <BasicTimer 
+        length={60}
+      />
     </div>
   )
 }
