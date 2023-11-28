@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { getFutureTime, checkIfTimeIsUp, saveTimeToLocalStorage, getTimeFromLocalStorage, getSecondsRemaining, clearTimeFromLocalStorage } from "../utils/timerUtils";
+import { getFutureTime, checkIfTimeIsUp, saveTimeToLocalStorage, getTimeFromLocalStorage, getSecondsRemaining, clearTimeFromLocalStorage, getTimeStringOfDate, TimeValue } from "../utils/timerUtils";
 import { get } from "http";
 
 export function BasicTimer({ length }
@@ -13,14 +13,15 @@ export function BasicTimer({ length }
   //we will then use that time to calculate the seconds remaining
 
   const timeStarted = new Date();
+  const timeValue : TimeValue = {time: timeStarted, format: 'HH:MM:SS AM/PM'};
   const timeWillEnd : Date = getFutureTime(length);
   const timeRemaining : number = getSecondsRemaining(timeWillEnd);
   
   return (
     <div>
-      <p> time started: {timeStarted.toDateString()}</p>
-      <p> length: {length}</p>
-      <p> time remaining: {getSecondsRemaining(timeWillEnd)}</p>
+      <p> time started: {getTimeStringOfDate(timeValue)}</p>
+      <p> length: {length} seconds</p>
+      <p> time remaining: {timeRemaining} seconds</p>
     </div>
   )
 
