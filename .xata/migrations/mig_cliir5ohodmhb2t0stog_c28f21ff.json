@@ -1,0 +1,12 @@
+{
+  "id": "mig_cliir5ohodmhb2t0stog",
+  "parentID": "mig_cliir4eca0el0e9cs080",
+  "checksum": "1:c28f21ffdd897960cf8dd826b60efadad8a17cbe8fc6e0b518091274d293b4b8",
+  "operations": [
+    {
+      "removeTable": {
+        "table": "nextauth_users"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "mig_cir8v0cp59ups3avf39g",
+  "parentID": "mig_cir8amgnod8oco62obmg",
+  "checksum": "1:c50d4ac2a52b9e0c89a2e8ff73c7d86d0cede4cd04470ca6d292a652a4b87ae1",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "user",
+          "type": "link",
+          "link": {
+            "table": "nextauth_users"
+          }
+        },
+        "table": "notes"
+      }
+    }
+  ]
+}

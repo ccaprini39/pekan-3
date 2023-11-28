@@ -1,0 +1,16 @@
+{
+  "id": "mig_cir8v4sp59ups3avf3ag",
+  "parentID": "mig_cir8v0cp59ups3avf39g",
+  "checksum": "1:edb4b8d28aa08d7c6a4bcc7acd3cb04d9b7409364ea05e1a603fe41b45352876",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "note",
+          "type": "text"
+        },
+        "table": "notes"
+      }
+    }
+  ]
+}

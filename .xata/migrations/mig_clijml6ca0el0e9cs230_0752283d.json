@@ -1,0 +1,19 @@
+{
+  "id": "mig_clijml6ca0el0e9cs230",
+  "parentID": "mig_clijmfdqe2s6ikke4v8g",
+  "checksum": "1:0752283dd3a55d27e38b45d4ca53ba8fd9e79855e6ff6872ccc6da07f98a08ae",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "TagId",
+          "type": "link",
+          "link": {
+            "table": "Tags"
+          }
+        },
+        "table": "NoteTags"
+      }
+    }
+  ]
+}

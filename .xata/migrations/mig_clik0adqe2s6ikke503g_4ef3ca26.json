@@ -1,0 +1,17 @@
+{
+  "id": "mig_clik0adqe2s6ikke503g",
+  "parentID": "mig_clik02eca0el0e9cs25g",
+  "checksum": "1:4ef3ca269d44fdc1fcbc52f0e10d72d654dd55c03a0339543956bd5176154913",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "Title",
+          "type": "string",
+          "unique": true
+        },
+        "table": "Notes"
+      }
+    }
+  ]
+}

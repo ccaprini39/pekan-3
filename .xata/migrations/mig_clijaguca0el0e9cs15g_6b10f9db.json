@@ -1,0 +1,18 @@
+{
+  "id": "mig_clijaguca0el0e9cs15g",
+  "parentID": "mig_clij9k6ca0el0e9cs14g",
+  "checksum": "1:6b10f9dbfdca724b9f8cb0b43070556ee8e609c280b569e08bb0ad1fc71d2aab",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "title",
+          "type": "text",
+          "notNull": true,
+          "defaultValue": "A note"
+        },
+        "table": "notes"
+      }
+    }
+  ]
+}

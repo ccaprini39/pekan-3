@@ -1,0 +1,17 @@
+{
+  "id": "mig_cliirk8hodmhb2t0str0",
+  "parentID": "mig_cliir98hodmhb2t0stq0",
+  "checksum": "1:f281f830d87737c994f569374b463ef302e8f47b56689020694b37b87a7ca3e4",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "content",
+          "type": "text",
+          "defaultValue": "Hello world!"
+        },
+        "table": "notes"
+      }
+    }
+  ]
+}

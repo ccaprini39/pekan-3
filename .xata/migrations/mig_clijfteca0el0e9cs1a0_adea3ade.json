@@ -1,0 +1,12 @@
+{
+  "id": "mig_clijfteca0el0e9cs1a0",
+  "parentID": "mig_clijcleca0el0e9cs18g",
+  "checksum": "1:adea3ade7e000ca9ca39e6133638105fa62e54f1ea33b006dfba1c42a37aaaad",
+  "operations": [
+    {
+      "addTable": {
+        "table": "Assistants"
+      }
+    }
+  ]
+}

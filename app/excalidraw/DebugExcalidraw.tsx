@@ -1,7 +1,6 @@
 'use client'
 import { useLocalStorage } from "@mantine/hooks";
 import { useEffect, useState } from "react";
-import { NoteObject, saveNote } from "../api/data-management/db-notes";
 import { MainMenu } from "@excalidraw/excalidraw";
 
 export default function DebugExcalidraw() {
@@ -17,14 +16,15 @@ export default function DebugExcalidraw() {
 
   async function saveNoteToDb() {
     const defaultUser = 'rec_cir8vbtpf9tn4kjf14p0'
-    const note: NoteObject = {
+    const note: any = {
       user: defaultUser,
       title: 'test note',
       note: JSON.stringify(elements)
     }
-    const result = await saveNote(note)
-    if (result === true) alert('saved')
-    else alert('error')
+    // const result = await saveNote(note)
+    const result = false
+    // if (result === true) alert('saved')
+    alert('error')
   }
 
   async function loadNoteFromDb() {

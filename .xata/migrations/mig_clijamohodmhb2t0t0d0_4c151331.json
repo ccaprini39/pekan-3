@@ -1,0 +1,13 @@
+{
+  "id": "mig_clijamohodmhb2t0t0d0",
+  "parentID": "mig_clijaleca0el0e9cs16g",
+  "checksum": "1:4c1513315e1a4f3bf47070e6d1315fcd121d1bff913e4b625b3124612421894e",
+  "operations": [
+    {
+      "renameTable": {
+        "newName": "Tags",
+        "oldName": "tags"
+      }
+    }
+  ]
+}

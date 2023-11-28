@@ -1,0 +1,13 @@
+{
+  "id": "mig_clijaleca0el0e9cs16g",
+  "parentID": "mig_clijaguca0el0e9cs15g",
+  "checksum": "1:48dafe809d809fb1c1602519d4b9f246faed2f5b75bf372b5103bf5eccb52374",
+  "operations": [
+    {
+      "renameTable": {
+        "newName": "Notes",
+        "oldName": "notes"
+      }
+    }
+  ]
+}

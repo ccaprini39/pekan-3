@@ -1,0 +1,13 @@
+{
+  "id": "mig_clik02eca0el0e9cs25g",
+  "parentID": "mig_clijml6ca0el0e9cs230",
+  "checksum": "1:3b3d5bd55f82b782e3f60e794ebf689a1c7ffecdec22fa8260bda28ec94877ea",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "Title",
+        "table": "Notes"
+      }
+    }
+  ]
+}
