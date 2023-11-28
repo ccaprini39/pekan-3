@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     return new StreamingTextResponse(stream);
   } catch (error) {
     console.log(error)
-    return 'error'
+    return new Response('error', { status: 500 }); // Return a Response object instead of a string
   }
 
 }
