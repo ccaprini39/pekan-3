@@ -1,13 +1,16 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getAllNotes } from "../server-functions/load-notes";
 import BasicEditor, { BasicEditorWithInput } from "@/app/components/BasicEditor";
+import { updateNote } from "../server-functions/create-note";
 
 export default function ViewAllNotes() {
+  const ref = useRef(null)
   const [notes, setNotes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedNote, setSelectedNote] = useState<any>(null);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     async function getNotes() {
@@ -21,6 +24,16 @@ export default function ViewAllNotes() {
     getNotes();
   }, [])
 
+  async function handleSave() {
+    const currentRefValue = ref.current as any
+    setSaving(true)
+    const response = await updateNote({
+      ...selectedNote,
+      Content: currentRefValue.getMarkdown()
+    })
+    setSaving(false)
+  }
+
   function NoteSelectSideBar() {
     return (
       <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content
@@ -31,7 +44,6 @@ export default function ViewAllNotes() {
         {notes.map((note, index) => {
           return (
             <li key={index}
-
               onClick={() => setSelectedNote?.(note)}
             >
               <a>
@@ -51,10 +63,28 @@ export default function ViewAllNotes() {
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
             <div
-              className="h-1/4"
+              className="w-full h-98-percent flex flex-col"
             >
+              <div
+                className="flex flex-row"
+              >
+                <input
+                  type="text" placeholder="Note Title"
+                  value={selectedNote?.Title}
+                  onChange={(e) => setSelectedNote?.({ ...selectedNote, Title: e.target.value })}
+                  className="input input-bordered input-lg w-98-percent m-3"
+                />
+                <button
+                  onClick={handleSave}
+                  className="btn btn-primary btn-lg m-3"
+                  disabled={saving}
+                >
+                  Save
+                </button>
+              </div>
               <BasicEditorWithInput
                 givenMarkdown={selectedNote?.Content}
+                givenRef={ref}
               />
             </div>
             {/* Page content here */}

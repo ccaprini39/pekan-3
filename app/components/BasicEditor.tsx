@@ -47,8 +47,8 @@ export default function BasicEditor() {
   )
 }
 
-export function BasicEditorWithInput({ givenMarkdown }: { givenMarkdown: string }) {
+export function BasicEditorWithInput({ givenMarkdown, givenRef }: { givenMarkdown: string, givenRef: any }) {
   return (
-    <EditorComp markdown={givenMarkdown} />
+    <EditorComp markdown={givenMarkdown} editorRef={givenRef} />
   )
 }

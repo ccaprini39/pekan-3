@@ -67,7 +67,7 @@ const Editor: FC<EditorProps> = ({ markdown, editorRef }) => {
   const originalMarkdown = markdown
   return (
     <div
-      className="bg-gray-800 h-full w-98-percent m-auto overflow-y-auto "
+      className="bg-gray-800 h-full w-98-percent m-auto overflow-y-auto rounded-lg"
     >
       <MDXEditor
         className="dark-theme px-3"
