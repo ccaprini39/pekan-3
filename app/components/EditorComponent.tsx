@@ -64,12 +64,13 @@ interface EditorProps {
  * proxying the ref is necessary. Next.js dynamically imported components don't support refs. 
 */
 const Editor: FC<EditorProps> = ({ markdown, editorRef }) => {
+  const originalMarkdown = markdown
   return (
     <div
-      className="bg-gray-800 p-5 h-full w-full m-auto overflow-y-auto"
+      className="bg-gray-800 h-full w-98-percent m-auto overflow-y-auto "
     >
       <MDXEditor
-        className="dark-theme"
+        className="dark-theme px-3"
         ref={editorRef}
         markdown={markdown}
         plugins={[
@@ -102,7 +103,7 @@ const Editor: FC<EditorProps> = ({ markdown, editorRef }) => {
           }),
           codeBlockPlugin({ defaultCodeBlockLanguage: 'js' }),
           codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', txt: 'txt', tsx: 'TypeScript' } }),
-          diffSourcePlugin({ diffMarkdown: 'An older version', viewMode: 'rich-text' }),
+          diffSourcePlugin({ diffMarkdown: originalMarkdown, viewMode: 'rich-text' }),
           imagePlugin({
             imageUploadHandler: () => {
               return Promise.resolve('https://picsum.photos/200/300')

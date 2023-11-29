@@ -77,3 +77,19 @@ h6 {
   font-size: 0.67em;
   margin: 2.33em 0;
 }
+
+.w-95-percent {
+  width: 95%;
+}
+
+.h-95-percent {
+  height: 95%;
+}
+
+.w-98-percent {
+  width: 98%;
+}
+
+.h-98-percent {
+  height: 98%;
+}
