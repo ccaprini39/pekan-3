@@ -8,7 +8,7 @@ import { updateNote } from "../server-functions/create-note";
 export default function ViewAllNotes() {
   const ref = useRef(null)
   const [notes, setNotes] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedNote, setSelectedNote] = useState<any>(null);
   const [saving, setSaving] = useState(false);
 
