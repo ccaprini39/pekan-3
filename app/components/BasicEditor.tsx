@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 
 const EditorComp = dynamic(() => import('./EditorComponent'), { ssr: false })
+const NoteEditorComponent = dynamic(() => import('./NoteEditorComponent'), { ssr: false })
 
 const markdown = `
 # Hello world!
@@ -50,5 +51,13 @@ export default function BasicEditor() {
 export function BasicEditorWithInput({ givenMarkdown, givenRef }: { givenMarkdown: string, givenRef: any }) {
   return (
     <EditorComp markdown={givenMarkdown} editorRef={givenRef} />
+  )
+}
+
+export function NoteEditor({ noteId }: { noteId: string}){
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NoteEditorComponent noteId={noteId} />
+    </Suspense>
   )
 }

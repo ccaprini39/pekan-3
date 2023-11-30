@@ -64,15 +64,17 @@ interface EditorProps {
  * proxying the ref is necessary. Next.js dynamically imported components don't support refs. 
 */
 const Editor: FC<EditorProps> = ({ markdown, editorRef }) => {
+  console.log('editorRef: ', editorRef?.current)
+  const current = editorRef?.current? editorRef.current : false
   const originalMarkdown = markdown
   return (
-    <div
+    <div 
       className="bg-gray-800 h-full w-98-percent m-auto overflow-y-auto rounded-lg"
     >
       <MDXEditor
         className="dark-theme px-3"
         ref={editorRef}
-        markdown={markdown}
+        markdown={current ? current.getMarkdown() : markdown}
         plugins={[
           // Example Plugin Usage
           toolbarPlugin({

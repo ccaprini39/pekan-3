@@ -15,3 +15,10 @@ export async function getPaginatedNotes(){
   return convertedRecords
 }
 
+export async function getNoteById(id: string){
+  const xata = getXataClient()
+  const record = await xata.db.Notes.read(id);
+  const convertedRecord = JSON.parse(JSON.stringify(record)) // convert to plain JS objects
+  return convertedRecord
+}
+

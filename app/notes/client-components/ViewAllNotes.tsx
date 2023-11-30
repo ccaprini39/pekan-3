@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from "react";
-import { getAllNotes } from "../server-functions/load-notes";
+import { getAllNotes, getNoteById } from "../server-functions/load-notes";
 import BasicEditor, { BasicEditorWithInput } from "@/app/components/BasicEditor";
 import { updateNote } from "../server-functions/create-note";
 
@@ -11,20 +11,28 @@ export default function ViewAllNotes() {
   const [loading, setLoading] = useState(true);
   const [selectedNote, setSelectedNote] = useState<any>(null);
   const [saving, setSaving] = useState(false);
+  const [refreshAllNotes, setRefreshAllNotes] = useState(false);
 
   useEffect(() => {
     async function getNotes() {
       setLoading(true);
       const notes = await getAllNotes();
-      console.log('notes: ', notes)
       setNotes(notes);
       notes.length >= 1 && setSelectedNote(notes[0]);
       setLoading(false);
     }
-    getNotes();
-  }, [])
+    !saving && getNotes();
+  }, [refreshAllNotes])
 
-  async function handleSave() {
+  useEffect(() => {
+    async function refreshSelectedNote() {
+      const note = await getNoteById(selectedNote?.Id);
+    }
+    !saving && selectedNote && refreshSelectedNote();
+  },[saving])
+
+  async function handleSave(e: any) {
+    e.preventDefault()
     const currentRefValue = ref.current as any
     setSaving(true)
     const response = await updateNote({
@@ -32,6 +40,10 @@ export default function ViewAllNotes() {
       Content: currentRefValue.getMarkdown()
     })
     setSaving(false)
+  }
+
+  async function handleRefresh() {
+    setRefreshAllNotes(!refreshAllNotes)
   }
 
   function NoteSelectSideBar() {
@@ -82,10 +94,19 @@ export default function ViewAllNotes() {
                   Save
                 </button>
               </div>
-              <BasicEditorWithInput
-                givenMarkdown={selectedNote?.Content}
-                givenRef={ref}
-              />
+              {
+                saving ? 
+                <div
+                  className="w-full h-full m-auto flex justify-center items-center"
+                >
+                  <span className="loading loading-spinner loading-lg m-auto"></span>
+                </div>
+                :
+                <BasicEditorWithInput
+                  givenMarkdown={selectedNote?.Content}
+                  givenRef={ref}
+                />
+              }
             </div>
             {/* Page content here */}
 
