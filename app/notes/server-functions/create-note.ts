@@ -17,6 +17,16 @@ export async function createNote(note : CreateNote) {
   return convertedRecord;
 }
 
+export async function createBlankNote(){
+  const xata = getXataClient();
+  const record = await xata.db.Notes.create({
+    Content: "",
+    Title: "",
+  });
+  const convertedRecord = JSON.parse(JSON.stringify(record)); // convert to plain JS objects
+  return convertedRecord;
+}
+
 interface UpdateNote {
   id: string;
   Content: string;

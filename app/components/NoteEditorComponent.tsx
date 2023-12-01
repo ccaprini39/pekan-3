@@ -34,7 +34,7 @@ import { updateNote } from '../notes/server-functions/create-note';
 
 
 export default function NoteEditorComponent(
-  { noteId }: { noteId: string }) {
+  { noteId, deleteNote }: { noteId: string, deleteNote: any }) {
   const [noteContent, setNoteContent] = useState<string>('')
   const [originalMarkdown, setOriginalMarkdown] = useState<string>('')
   const [noteTitle, setNoteTitle] = useState<string>('')
@@ -48,6 +48,9 @@ export default function NoteEditorComponent(
     async function getNoteContent() {
       setLoading(true)
       const data = await getNoteById(noteId)
+      if (!data) {
+        return
+      }
       setSelectedNote(data)
       setNoteTitle(data.Title)
       setNoteContent(data.Content)
@@ -79,11 +82,25 @@ export default function NoteEditorComponent(
     setSaving(false)
   } 
 
+  async function handleDeleteButtonClicked(e: any) {
+    e.preventDefault()
+    const note = await deleteNote(selectedNote.id)
+    setNoteContent('')
+    setNoteTitle('')
+    setSelectedNote(
+      {
+        id: '',
+        Content: '',
+        Title: ''
+      }
+    )
+  }
+
   function MenuBar(){
     const [localNoteTitle, setLocalNoteTitle] = useState(noteTitle);
     // thing that looks like a menu bar with the note title and a save button
     return (
-      <div className="flex justify-between items-center w-full h-10 m-2 bg-base-200">
+      <div className="flex justify-between items-center w-98-percent h-10 m-2 bg-base-200">
         <div className="flex justify-start items-center">
           <input 
             type="text" 
@@ -96,10 +113,17 @@ export default function NoteEditorComponent(
         </div>
         <div className="flex justify-end items-center">
           <button
+            disabled={saving}
             className="btn btn-sm btn-primary"
             onClick={handleSave}
           >
             Save
+          </button>
+          <button
+            className="btn btn-sm btn-error"
+            onClick={handleDeleteButtonClicked}
+          >
+            Delete
           </button>
         </div>
       </div>
@@ -109,11 +133,11 @@ export default function NoteEditorComponent(
   return (
     <>
       {loading ?
-        <div className="flex justify-center items-center h-full w-full">
+        <div className="flex justify-center items-center h-full w-full max-h-full max-w-full">
           <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24"></div>
         </div>
         :
-        <div className="textarea textarea-bordered h-full w-98-percent m-auto overflow-y-auto rounded-lg">
+        <div className="textarea textarea-bordered h-full  max-h-full max-w-full w-98-percent m-auto overflow-y-auto rounded-lg">
           <MenuBar />
           <MDXEditor
             className="dark-theme px-3"

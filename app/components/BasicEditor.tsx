@@ -54,10 +54,13 @@ export function BasicEditorWithInput({ givenMarkdown, givenRef }: { givenMarkdow
   )
 }
 
-export function NoteEditor({ noteId }: { noteId: string}){
+export function NoteEditor({ noteId, deleteNote }: { noteId: string, deleteNote: any}){
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <NoteEditorComponent noteId={noteId} />
+      <NoteEditorComponent 
+        noteId={noteId} 
+        deleteNote={deleteNote}
+      />
     </Suspense>
   )
 }

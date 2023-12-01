@@ -4,7 +4,12 @@ import { useEffect, useState, useRef } from "react";
 import { getAllNotes, getNoteById } from "../server-functions/load-notes";
 import BasicEditor, { BasicEditorWithInput } from "@/app/components/BasicEditor";
 import { updateNote } from "../server-functions/create-note";
+import NoteEditorComponent from "@/app/components/NoteEditorComponent";
 
+interface Tab {
+  name: string,
+  content: any
+}
 export default function ViewAllNotes() {
   const ref = useRef(null)
   const [notes, setNotes] = useState<any[]>([]);
@@ -12,6 +17,7 @@ export default function ViewAllNotes() {
   const [selectedNote, setSelectedNote] = useState<any>(null);
   const [saving, setSaving] = useState(false);
   const [refreshAllNotes, setRefreshAllNotes] = useState(false);
+  const [tabs, setTabs] = useState<Tab[]>([])
 
   useEffect(() => {
     async function getNotes() {
@@ -19,6 +25,20 @@ export default function ViewAllNotes() {
       const notes = await getAllNotes();
       setNotes(notes);
       notes.length >= 1 && setSelectedNote(notes[0]);
+      notes.length >= 1 && setTabs(notes.map((note: any) => {
+        return {
+          name: note.Title,
+          content: <NoteEditorComponent
+            noteId={note.Id}
+            deleteNote={async (noteId: string) => {
+              console.log('fuck me')
+              setNotes(await getAllNotes());
+              setSelectedNote?.(notes[0]);
+              return note;
+            }}
+          />
+        }
+      }))
       setLoading(false);
     }
     !saving && getNotes();
@@ -115,6 +135,7 @@ export default function ViewAllNotes() {
             </label>
 
           </div>
+
           <div className="drawer-side">
             <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
             <NoteSelectSideBar />
