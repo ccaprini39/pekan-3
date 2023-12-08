@@ -38,12 +38,14 @@ body {
 
 ul {
   list-style: disc;
+  list-style-position: inside;
   padding: 0;
   margin: 0;
 }
 
 ol {
   list-style: auto;
+  list-style-position: inside;
   padding: 0;
   margin: 0;
 }

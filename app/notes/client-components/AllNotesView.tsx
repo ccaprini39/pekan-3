@@ -83,7 +83,7 @@ export default function AllNotesView() {
 
     const [newNoteOpen, setNewNoteOpen] = useState<boolean>(false)
     return (
-      <ul className="menu p-4 w-80 max-h-full bg-base-200 text-base-content
+      <ul className="menu p-4 w-80 max-h-full bg-base-300 text-base-content
         rounded-box scrollbar-thin scrollbar-track-rounded-full 
         scrollbar-thumb-rounded-full scrollbar-thumb-blue-700 scrollbar-track-blue-300 
         dark:scrollbar-thumb-blue-100 dark:scrollbar-track-gray-700"
@@ -172,12 +172,15 @@ export default function AllNotesView() {
     return (
       <div className="h-full w-full">
         <Message />
-        <div className="drawer lg:drawer-open">
+        <div className="drawer">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
             <div
               className="w-full h-98-percent flex flex-col"
             >
+              <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button">
+                Open drawer
+              </label>
               {
                 loading ? (
                   <div className="flex justify-center items-center h-full w-full">
@@ -195,13 +198,8 @@ export default function AllNotesView() {
               }
             </div>
             {/* Page content here */}
-
-            <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">
-              Open drawer
-            </label>
-
           </div>
-          <div className="drawer-side">
+          <div className="drawer-side z-20">
             <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
             <NoteSelectSideBar />
           </div>

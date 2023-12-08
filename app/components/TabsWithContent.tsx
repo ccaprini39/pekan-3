@@ -19,14 +19,25 @@ export function BasicTabsWithContent({ tabs }: { tabs: Tab[] }) {
   const firstTab = tabs[0]
   const allOtherTabs = tabs.slice(1)
 
+  function getDisplayTitle(title : string) {
+    if (title.length > 7) {
+      return title.slice(0, 7) + '...'
+    }
+    return title
+  }
+
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full m-auto">
       <div role="tablist" className="tabs tabs-lifted grid-rows-[auto,1fr] h-full">
         {tabs.map((tab: Tab, index : number) => {
           return (
             <>
-              <input type="radio" name="my_tabs_2" role="tab" className="tab" onClick={() => setChecked(index)} checked={getChecked(index)} aria-label={tab.name} />
-              <div role="tabpanel" className="tab-content bg-base-100 border-base-300 h-full rounded-box p-6">
+              <input type="radio" name="my_tabs_2" role="tab" 
+                className="tab" 
+                onClick={() => setChecked(index)} checked={getChecked(index)} 
+                aria-label={getDisplayTitle(tab.name)} 
+              />
+              <div role="tabpanel" className="tab-content bg-base-300 border-base-300 h-full w-98-percent rounded-box p-6">
                 {tab.content}
               </div>
             </>

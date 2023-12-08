@@ -100,7 +100,7 @@ export default function NoteEditorComponent(
     const [localNoteTitle, setLocalNoteTitle] = useState(noteTitle);
     // thing that looks like a menu bar with the note title and a save button
     return (
-      <div className="flex justify-between items-center w-98-percent h-10 m-2 bg-base-200">
+      <div className="flex justify-between items-center w-98-percent h-10 m-2 bg-base-300">
         <div className="flex justify-start items-center">
           <input 
             type="text" 
@@ -137,10 +137,10 @@ export default function NoteEditorComponent(
           <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24"></div>
         </div>
         :
-        <div className="textarea textarea-bordered h-full  max-h-full max-w-full w-98-percent m-auto overflow-y-auto rounded-lg">
+        <div className="textarea textarea-bordered h-full w-98-percent m-auto overflow-y-auto rounded-lg">
           <MenuBar />
           <MDXEditor
-            className="dark-theme px-3"
+            className="dark-theme"
             markdown={noteContent}
             ref={ref}
             plugins={[
