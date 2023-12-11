@@ -172,14 +172,14 @@ export default function AllNotesView() {
     return (
       <div className="h-full w-full">
         <Message />
-        <div className="drawer">
+        <div className="drawer h-full max-h-full overflow-y-auto">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content">
+          <div className="drawer-content h-full">
             <div
               className="w-full h-98-percent flex flex-col"
             >
               <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button">
-                Open drawer
+                File Explorer
               </label>
               {
                 loading ? (
@@ -188,11 +188,11 @@ export default function AllNotesView() {
                   </div>
                 ) : (
                   <div className="flex justify-center items-center h-full w-full">
-                    {/* <NoteEditor
+                    <NoteEditor
                       deleteNote={handleDeleteNote}
                       noteId={selectedNote?.id}
-                    /> */}
-                    <BasicTabsWithContent tabs={tabs} />
+                    />
+                    {/* <BasicTabsWithContent tabs={tabs} /> */}
                   </div>
                 )
               }

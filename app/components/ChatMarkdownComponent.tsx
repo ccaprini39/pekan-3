@@ -81,7 +81,7 @@ export function MarkdownChatEditor({ handleSubmit, input, setInput, placeholder 
   }
 
   return (
-    <form className="relative px-5" onSubmit={handleLocalSubmit}>
+    <form className="flex flex-row px-5" onSubmit={handleLocalSubmit}>
       <textarea
         className="w-full h-24 hidden px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
         name="message"
@@ -91,20 +91,21 @@ export function MarkdownChatEditor({ handleSubmit, input, setInput, placeholder 
         placeholder="type a message"
       />
       <MDXEditor
-        className="dark-theme"
+        className="dark-theme w-11/12 bg-base-300"
         markdown={input}
         ref={ref}
         onChange={() => setInput(ref.current.getMarkdown())}
         plugins={[
           toolbarPlugin({
             toolbarContents: () => (
-              <DiffSourceToggleWrapper>
+              <>
+              {/* <DiffSourceToggleWrapper> */}
                 <UndoRedo />
                 <BoldItalicUnderlineToggles />
                 <BlockTypeSelect />
                 <CodeToggle />
-                <CreateLink />
-                <InsertImage />
+                {/* <CreateLink />
+                <InsertImage /> */}
                 <InsertTable />
                 <InsertThematicBreak />
                 <ListsToggle />
@@ -115,27 +116,29 @@ export function MarkdownChatEditor({ handleSubmit, input, setInput, placeholder 
                     { fallback: () => <InsertCodeBlock /> }
                   ]}
                 />
-              </DiffSourceToggleWrapper>
+                
+              {/* </DiffSourceToggleWrapper> */}
+              </>
             ),
           }),
           codeBlockPlugin({ defaultCodeBlockLanguage: 'js' }),
           codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', txt: 'txt', tsx: 'TypeScript' } }),
-          diffSourcePlugin({ diffMarkdown: originalMarkdown, viewMode: 'rich-text' }),
-          imagePlugin({
-            imageUploadHandler: () => Promise.resolve('https://picsum.photos/200/300'),
-            imageAutocompleteSuggestions: ['https://picsum.photos/200/300', 'https://picsum.photos/200'],
-          }),
+          //diffSourcePlugin({ diffMarkdown: originalMarkdown, viewMode: 'rich-text' }),
+          // imagePlugin({
+          //   imageUploadHandler: () => Promise.resolve('https://picsum.photos/200/300'),
+          //   imageAutocompleteSuggestions: ['https://picsum.photos/200/300', 'https://picsum.photos/200'],
+          // }),
           tablePlugin(),
           quotePlugin(),
           headingsPlugin(),
           listsPlugin(),
           quotePlugin(),
           thematicBreakPlugin(),
-          markdownShortcutPlugin(),
+          // markdownShortcutPlugin(),
         ]}
       />
       <button
-        className="absolute right-6 bottom-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
         type="submit"
       >
         Send
