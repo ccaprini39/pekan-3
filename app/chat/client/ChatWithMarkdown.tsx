@@ -78,11 +78,6 @@ export function ChatWithMarkdown() {
     (systemMessageContent !== defaultMessage) && updateSystemMessage();
   }, [systemMessageContent])
 
-  useEffect(() => {
-    console.log('is loading: ', isLoading);
-  }, [isLoading])
-
-
   async function handleReload() {
     stop();
     await reload();
