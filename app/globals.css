@@ -41,11 +41,16 @@ ul {
   list-style: disc;
   list-style-position: inside;
   border-left: solid 5px transparent;
+  margin: 0;
+  padding: 0;
 }
 
 ol {
   list-style: auto;
   list-style-position: inside;
+  border-left: solid 5px transparent;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
