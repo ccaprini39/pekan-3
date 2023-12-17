@@ -45,6 +45,44 @@ ul {
   padding: 0;
 }
 
+li[role="checkbox"] {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  padding-left: 1.5em;
+}
+
+li[role="checkbox"]::before {
+  content: "";
+  /* other styles for the checkbox */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+li[role="checkbox"]::after {
+  content: "";
+  /* other styles for the checkbox */
+  position: absolute;
+  top: 30%;
+}
+
+blockquote {
+  font-weight: 500;
+  font-style: italic;
+  color: var(--tw-prose-quotes);
+  border-left-width: 0.25rem;
+  border-left-color: var(--tw-prose-quote-borders);
+  quotes: "\201C""\201D""\2018""\2019";
+  padding-left: 1em;
+}
+
+a {
+  color: var(--tw-text-blue-600);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
 ol {
   list-style: auto;
   list-style-position: inside;
