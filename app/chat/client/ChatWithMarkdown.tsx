@@ -24,6 +24,11 @@ export function ChatWithMarkdown() {
     }
   ]
 
+  const [simple, setSimple] = useState(true);
+  function toggleSimple(){
+    setSimple(!simple);
+  }
+
   async function saveMessagesToLocalStorage() {
     localStorage.setItem('messages', JSON.stringify(messages));
   }
@@ -53,7 +58,7 @@ export function ChatWithMarkdown() {
   const [loading, setLoading] = useState(false);
   const [autoPlay, setAutoPlay] = useState(false);
 
-  const { messages, input, isLoading, setInput, handleSubmit, reload, stop, setMessages } = useChat({
+  const { messages, input, isLoading, setInput, handleInputChange, handleSubmit, reload, stop, setMessages } = useChat({
     initialMessages
   });
 
@@ -120,6 +125,15 @@ export function ChatWithMarkdown() {
         />
         Play Audio
       </label>
+      <label className="w-full ml-5">
+        <input
+          className="mr-2 leading-tight"
+          type="checkbox"
+          checked={simple}
+          onChange={toggleSimple}
+        />
+        Simple
+      </label>
 
       <div className="flex-1 overflow-y-auto">
         {messages.length > 0 && messages.map((message, index) => {
@@ -139,12 +153,16 @@ export function ChatWithMarkdown() {
         }
       </div>
       <div>
-        <MarkdownChatEditor
-          handleSubmit={handleSubmit}
-          input={input}
-          setInput={setInput}
-          placeholder="type here"
-        />
+        {simple ?
+          <SimpleChat />
+          :
+          <MarkdownChatEditor
+            handleSubmit={handleSubmit}
+            input={input}
+            setInput={setInput}
+            placeholder="type here"
+          />
+        }
         <div className="flex flex-row justify-center">
           <div className="join float-left mx-5">
             <button
@@ -192,8 +210,27 @@ export function ChatWithMarkdown() {
       </div>
     </div>
   )
+  function SimpleChat() {
+    return (
+      <form className="relative px-5" onSubmit={handleSubmit}>
+        <textarea
+          className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 h-full"
+          name="message"
+          rows={3}
+          value={input}
+          onChange={handleInputChange}
+          placeholder="type a message"
+        />
+        <button
+          className="absolute right-6 bottom-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
+          type="submit"
+        >
+          Send
+        </button>
+      </form>
+    )
+  }
 }
-
 
 export function ChatText({ message, last, inProgress, autoPlay }: { message: Message, last: boolean, inProgress: boolean, autoPlay: boolean }) {
 
