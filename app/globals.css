@@ -66,6 +66,17 @@ li[role="checkbox"]::after {
   top: 30%;
 }
 
+.resizable {
+  width: 120px;
+  color: white;
+  font-family: sans-serif;
+  overflow: auto;
+  touch-action: none;
+
+  /* This makes things *much* easier */
+  box-sizing: border-box;
+}
+
 blockquote {
   font-weight: 500;
   font-style: italic;
