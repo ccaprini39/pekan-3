@@ -133,13 +133,15 @@ export default function NoteEditorComponent(
   }
 
   return (
-    <>
+    <div
+      className="h-full w-full max-h-full max-w-full"
+    >
       {loading ?
         <div className="flex justify-center items-center h-full w-full max-h-full max-w-full">
           <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24"></div>
         </div>
         :
-        <div className="textarea textarea-bordered h-full w-98-percent m-auto overflow-y-auto rounded-lg">
+        <div className="textarea textarea-bordered h-full max-h-full w-98-percent m-auto overflow-y-auto rounded-lg">
           <MenuBar />
           <MDXEditor
             className="dark-theme"
@@ -188,6 +190,6 @@ export default function NoteEditorComponent(
           />
         </div>
       }
-    </>
+    </div>
   );
 };

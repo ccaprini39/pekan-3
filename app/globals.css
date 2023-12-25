@@ -66,8 +66,9 @@ li[role="checkbox"]::after {
   top: 30%;
 }
 
-.resizable {
+.resizable-x {
   width: 120px;
+  height: 100%;
   color: white;
   font-family: sans-serif;
   overflow: auto;

@@ -1,13 +1,24 @@
+'use client'
 
-export default function NotePage({params} : {params: {note: string}} ){
-  console.log(params.note)
+import { useRouter } from 'next/navigation';
+import { NoteEditor } from "@/app/components/BasicEditor";
+import { deleteNote } from "../server-functions/delete-note";
+
+export default function NotePage({ params }: { params: { note: string } }) {
+  const router = useRouter()
+  async function handleDelete() {
+    await deleteNote(params.note)
+    router.push('/notes')
+  }
+
   return (
     <div
-      className="h-full w-full"
+      className="h-full w-full max-h-full max-w-full"
     >
-      <div>
-        {params.note}
-      </div>
+      <NoteEditor
+        deleteNote={handleDelete}
+        noteId={params.note}
+      />
     </div>
   )
 }

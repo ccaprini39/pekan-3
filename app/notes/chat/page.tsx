@@ -8,7 +8,7 @@ export default function HuggingFaceChat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({api: '/api/hf-chat'});
 
   return (
-    <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch h-screen max-h-screen overflow-auto">
+    <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch h-screen max-h-screen">
       {messages.map((message, index) => {
         let last = false;
         if (index === messages.length - 1) last = true;
