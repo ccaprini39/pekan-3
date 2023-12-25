@@ -2,7 +2,10 @@
 import { useEffect, useState } from 'react';
 import { VscCommentDiscussion, VscFiles, VscSearch } from "react-icons/vsc";
 import { GiAngelOutfit, GiDevilMask } from 'react-icons/gi';
+import { getAllNoteTitles } from './server-functions/load-notes'
 import interact from 'interactjs';
+import { NoteEditor } from '../components/BasicEditor';
+import { deleteNote } from './server-functions/delete-note';
 
 export default function Layout({ children }: any) {
 
@@ -72,7 +75,9 @@ export default function Layout({ children }: any) {
         >
           <PolyComponent type={selectedSidebar}/>
         </nav>
-        <main>
+        <main 
+          className='flex-grow h-full border border-gray-500'
+        >
           {children}
         </main>
       </div>
@@ -82,11 +87,50 @@ export default function Layout({ children }: any) {
 }
 
 function PolyComponent({ type }: { type: string }) {
+  if (type === 'notes') return <NotesList />
   return (
     <div
       className="h-full w-full"
     >
       {type}
+    </div>
+  )
+}
+
+function NotesList(){
+  const [notes, setNotes] = useState<any[]>([]);
+  const [selectedNote, setSelectedNote] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    async function loadNotes(){
+      setLoading(true);
+      const notes = await getAllNoteTitles();
+      console.log(notes)
+      setNotes(notes);
+      setLoading(false);
+    }
+    loadNotes();
+    // get notes
+  }, []);
+
+  async function handleDeleteNote(id: string){
+    await deleteNote(id);
+  }
+
+  if (loading) return <div>loading...</div>
+  return (
+    <div
+      className="h-full w-full flex flex-col pr-2"
+    >
+      {notes.map((note: any) => (
+        <a
+          className='hover:bg-gray-900 no-underline'
+          href={`/notes/${note.id}`}
+        >
+          {note.Title}
+        </a>
+      ))}
     </div>
   )
 }

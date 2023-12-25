@@ -8,6 +8,13 @@ export async function getAllNotes(){
   return convertedRecords
 }
 
+export async function getAllNoteTitles(){
+  const xata = getXataClient()
+  const records = await xata.db.Notes.select(["id", "Title"]).getAll();
+  const convertedRecords = JSON.parse(JSON.stringify(records)) // convert to plain JS objects
+  return convertedRecords
+}
+
 export async function getPaginatedNotes(){
   const xata = getXataClient()
   const records = await xata.db.Notes.getPaginated();
@@ -21,4 +28,3 @@ export async function getNoteById(id: string){
   const convertedRecord = JSON.parse(JSON.stringify(record)) // convert to plain JS objects
   return convertedRecord
 }
-
