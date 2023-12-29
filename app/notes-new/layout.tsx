@@ -36,7 +36,7 @@ export default function Layout({ children }: any) {
       >
         <NotesSidebar selectedSidebar={selectedSidebar} setSelectedSidebar={setSelectedSidebar} />
         <div
-          className="h-full w-full border border-gray-500 resizable-x"
+          className="h-full w-full border border-gray-500"
         >
           <NotesTray selectedSidebar={selectedSidebar} setSelectedSidebar={setSelectedSidebar}>
             {children}
