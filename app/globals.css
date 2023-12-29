@@ -90,7 +90,7 @@
 ul {
   list-style: disc;
   list-style-position: inside;
-  border-left: solid 5px transparent;
+  border-left: solid 1rem transparent;
   margin: 0;
   padding: 0;
 }
@@ -144,7 +144,7 @@ a {
 ol {
   list-style: auto;
   list-style-position: inside;
-  border-left: solid 5px transparent;
+  border-left: solid 1rem transparent;
   margin: 0;
   padding: 0;
 }
