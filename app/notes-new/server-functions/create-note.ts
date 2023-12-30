@@ -8,12 +8,14 @@ interface CreateNote {
 }
 
 export async function createNote(note : CreateNote) {
+  console.log("createNote")
   const xata = getXataClient();
   const record = await xata.db.Notes.create({
     Content: note.Content,
     Title: note.Title,
   });
   const convertedRecord = JSON.parse(JSON.stringify(record)); // convert to plain JS objects
+  console.log("convertedRecord", convertedRecord)
   return convertedRecord;
 }
 

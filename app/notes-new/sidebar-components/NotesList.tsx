@@ -1,7 +1,7 @@
 'use client'
 
-import { createNote } from "@/app/notes/server-functions/create-note";
-import { getAllNoteTitles } from "@/app/notes/server-functions/load-notes";
+import { createNote } from "@/app/notes-new/server-functions/create-note";
+import { getAllNoteTitles } from "@/app/notes-new/server-functions/load-notes";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { VscNewFile, VscRefresh } from "react-icons/vsc";
@@ -20,7 +20,7 @@ export default function NotesList() {
       setLoading(false);
     }
     loadNotes();
-  })
+  },[])
 
   async function handleCreateNote(e: any) {
     e.preventDefault()
@@ -28,6 +28,7 @@ export default function NotesList() {
       Title: newNoteTitle,
       Content: ''
     })
+    alert('created note ' + note.id)
     const newNoteId = note.id;
     setNewNoteTitle('')
     setCreatingNote(false)
@@ -36,7 +37,9 @@ export default function NotesList() {
   }
 
   async function handleRefresh() {
+
     const refreshedNotes = await getAllNoteTitles();
+    alert('refreshed notes ')
     setShallowNotes(refreshedNotes);
   }
 

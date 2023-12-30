@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { getAllNotes } from "../server-functions/load-notes";
+import { getAllNotes } from "../../notes-new/server-functions/load-notes";
 import { NoteEditor } from "@/app/components/BasicEditor";
-import { createBlankNote, createNote } from "../server-functions/create-note";
-import { deleteNote } from "../server-functions/delete-note";
+import { createBlankNote, createNote } from "../../notes-new/server-functions/create-note";
+import { deleteNote } from "../../notes-new/server-functions/delete-note";
 import { sleep } from "openai/core";
 import { BasicTabsWithContent } from "@/app/components/TabsWithContent";
 

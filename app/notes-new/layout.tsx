@@ -7,6 +7,7 @@ import { ModeToggle } from '../components/ModeToggle';
 import { useLocalStorage } from '@mantine/hooks';
 import NotesSidebar from './SideNav';
 import NotesTray from './NotesTray';
+import FullScreenToggle from '@/components/ui/FullScreen';
 
 export default function Layout({ children }: any) {
 
@@ -29,7 +30,13 @@ export default function Layout({ children }: any) {
           - Two Dameons Andon -
           <GiDevilMask size='1.5em' />
         </div>
-        <ModeToggle />
+        <div
+          className='flex items-center justify-center'
+        >
+          <ModeToggle />
+          <FullScreenToggle />
+        </div>
+
       </header>
       <div
         className="flex-grow flex flex-row w-full h-full max-h-full overflow-auto"

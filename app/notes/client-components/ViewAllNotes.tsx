@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useState, useRef } from "react";
-import { getAllNotes, getNoteById } from "../server-functions/load-notes";
+import { getAllNotes, getNoteById } from "../../notes-new/server-functions/load-notes";
 import BasicEditor, { BasicEditorWithInput } from "@/app/components/BasicEditor";
-import { updateNote } from "../server-functions/create-note";
+import { updateNote } from "../../notes-new/server-functions/create-note";
 import NoteEditorComponent from "@/app/components/NoteEditorComponent";
 
 interface Tab {

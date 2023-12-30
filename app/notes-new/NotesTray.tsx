@@ -22,6 +22,7 @@ export default function NotesTray({ selectedSidebar, setSelectedSidebar, childre
       <ResizablePanel
         minSize={10}
         maxSize={600}
+        defaultSize={100}
       >
         <div className="flex h-full items-center justify-center">
           {children}

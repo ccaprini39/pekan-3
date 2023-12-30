@@ -31,8 +31,8 @@ import {
   DiffSourceToggleWrapper,
 } from "@mdxeditor/editor";
 import '@mdxeditor/editor/style.css'
-import { getNoteById } from '../notes/server-functions/load-notes';
-import { updateNote } from '../notes/server-functions/create-note';
+import { getNoteById } from '../notes-new/server-functions/load-notes';
+import { updateNote } from '../notes-new/server-functions/create-note';
 
 
 export default function NoteEditorComponent(

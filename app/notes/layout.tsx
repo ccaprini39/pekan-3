@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react';
 import { VscCommentDiscussion, VscFiles, VscNewFile, VscRefresh, VscSearch } from "react-icons/vsc";
 import { GiAngelOutfit, GiDevilMask } from 'react-icons/gi';
-import { getAllNoteTitles } from './server-functions/load-notes'
+import { getAllNoteTitles } from '../notes-new/server-functions/load-notes'
 import interact from 'interactjs';
 import { useLocalStorage } from '@mantine/hooks';
-import { createNote } from './server-functions/create-note';
+import { createNote } from '../notes-new/server-functions/create-note';
 import { useRouter } from 'next/navigation';
 import { useChat } from 'ai/react';
 import { ChatContent } from '../chat/client/Chat';
