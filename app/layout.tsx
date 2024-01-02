@@ -10,10 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Pekan',
-  description: 'Some things',
-  icons: {
-    icon: '/public/next.svg',
-  }
+  description: 'Some things'
 }
 
 export default async function RootLayout({

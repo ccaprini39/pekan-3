@@ -18,6 +18,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "jsxFactory": "React.createElement",
+    "downlevelIteration": true,
     "incremental": true,
     "plugins": [
       {

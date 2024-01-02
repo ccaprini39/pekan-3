@@ -1,7 +1,7 @@
 'use client'
 
-import { createNote } from "@/app/notes-new/server-functions/create-note";
-import { getAllNoteTitles } from "@/app/notes-new/server-functions/load-notes";
+import { createNote } from "@/app/notes/server-functions/create-note";
+import { getAllNoteTitles } from "@/app/notes/server-functions/load-notes";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { VscNewFile, VscRefresh } from "react-icons/vsc";
@@ -22,6 +22,12 @@ export default function NotesList() {
     loadNotes();
   },[])
 
+  async function handleFollowLink(e: any) {
+    e.preventDefault()
+    const noteId = e.target.id;
+    router.push(`/notes/${noteId}`)
+  }
+
   async function handleCreateNote(e: any) {
     e.preventDefault()
     const note = await createNote({
@@ -32,12 +38,11 @@ export default function NotesList() {
     const newNoteId = note.id;
     setNewNoteTitle('')
     setCreatingNote(false)
-    router.push(`/notes-new/${newNoteId}`)
+    router.push(`/notes/${newNoteId}`)
     shallowNotes.push(note)
   }
 
   async function handleRefresh() {
-
     const refreshedNotes = await getAllNoteTitles();
     alert('refreshed notes ')
     setShallowNotes(refreshedNotes);
@@ -92,7 +97,8 @@ export default function NotesList() {
         <a
           className='hover:bg-gray-900 rounded-md h-8 max-h-8 no-underline text-sm overflow-x-hidden truncate whitespace-nowrap cursor-pointer'
           key={note.id}
-          onClick={() => router.push(`/notes-new/${note.id}`)}
+          id={note.id}
+          onClick={handleFollowLink}
         >
           {note.Title}
         </a>

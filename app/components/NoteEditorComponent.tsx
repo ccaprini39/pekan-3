@@ -31,8 +31,12 @@ import {
   DiffSourceToggleWrapper,
 } from "@mdxeditor/editor";
 import '@mdxeditor/editor/style.css'
-import { getNoteById } from '../notes-new/server-functions/load-notes';
-import { updateNote } from '../notes-new/server-functions/create-note';
+import { getNoteById } from '../notes/server-functions/load-notes';
+import { updateNote } from '../notes/server-functions/create-note';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useClipboard } from '@mantine/hooks';
+
 
 
 export default function NoteEditorComponent(
@@ -63,7 +67,7 @@ export default function NoteEditorComponent(
   }, [])
 
   useEffect(() => {
-    function updateSelectedNote(){
+    function updateSelectedNote() {
       setSelectedNote({
         ...selectedNote,
         Content: noteContent,
@@ -82,7 +86,7 @@ export default function NoteEditorComponent(
       Title: noteTitle
     })
     setSaving(false)
-  } 
+  }
 
   async function handleDeleteButtonClicked(e: any) {
     e.preventDefault()
@@ -98,35 +102,38 @@ export default function NoteEditorComponent(
     )
   }
 
-  function MenuBar(){
+  function MenuBar() {
     const [localNoteTitle, setLocalNoteTitle] = useState(noteTitle);
     // thing that looks like a menu bar with the note title and a save button
     return (
       <div className="flex justify-between items-center w-98-percent h-10 m-2 bg-base-300">
         <div className="flex justify-start items-center">
-          <input 
-            type="text" 
-            className="input input-bordered input-sm" 
-            placeholder="Title" 
+          <Input
+            type="text"
+            className="input input-bordered input-sm"
+
+            placeholder="Title"
             value={localNoteTitle}
             onChange={(e) => setLocalNoteTitle(e.target.value)}
             onBlur={() => setNoteTitle(localNoteTitle)}
           />
         </div>
         <div className="flex justify-end items-center">
-          <button
+          <Button
+            variant={'outline'}
             disabled={saving}
-            className="btn btn-sm btn-primary"
+            size={'sm'}
             onClick={handleSave}
           >
             Save
-          </button>
-          <button
-            className="btn btn-sm btn-error"
+          </Button>
+          <Button
+            variant={'outline'}
+            size={'sm'}
             onClick={handleDeleteButtonClicked}
           >
             Delete
-          </button>
+          </Button>
         </div>
       </div>
     )

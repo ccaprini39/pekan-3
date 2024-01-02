@@ -2,7 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { NoteEditor } from "@/app/components/BasicEditor";
-import { deleteNote } from "../../notes-new/server-functions/delete-note";
+import { deleteNote } from '../server-functions/delete-note';
+
 
 export default function NotePage({ params }: { params: { note: string } }) {
   const router = useRouter()

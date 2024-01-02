@@ -14,7 +14,7 @@ import { MarkdownChatEditor } from "@/app/components/ChatMarkdownComponent";
 
 export function ChatWithMarkdown() {
 
-  const defaultMessage = 'you are a helpfu l assistant performing a role similar to a therapist.  You take in input from the user and give a short response that is either reassuring or critical, and end your response with a related question';
+  const defaultMessage = 'you are a helpful assistant performing a role similar to a therapist.  You take in input from the user and give a short response that is either reassuring or critical, and end your response with a related question';
   const initialMessages: Message[] = [
     {
       id: 'something',
