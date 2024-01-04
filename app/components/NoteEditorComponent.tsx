@@ -35,8 +35,7 @@ import { getNoteById } from '../notes/server-functions/load-notes';
 import { updateNote } from '../notes/server-functions/create-note';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useClipboard } from '@mantine/hooks';
-
+import { useDidUpdate, useIdle, useInterval } from '@mantine/hooks';
 
 
 export default function NoteEditorComponent(
@@ -49,6 +48,23 @@ export default function NoteEditorComponent(
   const [currentRefValue, setCurrentRefValue] = useState<MDXEditorMethods | null>(null)
   const ref = React.useRef<MDXEditorMethods | null>(null)
   const [selectedNote, setSelectedNote] = useState<any>(null);
+  const [seconds, setSeconds] = useState(0);
+  const interval = useInterval(() => handleSave(), 30000);
+
+
+  const idle = useIdle(3000)
+
+  useDidUpdate(() => { 
+    if(!idle){
+      interval.start()
+    } else {
+      handleSave()
+      interval.stop()
+    }
+  }, [idle])
+
+
+  useInterval
 
   useEffect(() => {
     async function getNoteContent() {
@@ -77,8 +93,8 @@ export default function NoteEditorComponent(
     updateSelectedNote()
   }, [])
 
-  async function handleSave(e: any) {
-    e.preventDefault()
+  async function handleSave(e?: any) {
+    e?.preventDefault()
     setSaving(true)
     const response = await updateNote({
       ...selectedNote,
@@ -117,6 +133,9 @@ export default function NoteEditorComponent(
             onChange={(e) => setLocalNoteTitle(e.target.value)}
             onBlur={() => setNoteTitle(localNoteTitle)}
           />
+        </div>
+        <div>
+          idle: {idle ? 'true' : 'false'}
         </div>
         <div className="flex justify-end items-center">
           <Button
