@@ -52,7 +52,7 @@ export default function NoteEditorComponent(
   const interval = useInterval(() => handleSave(), 30000);
 
 
-  const idle = useIdle(3000)
+  const idle = useIdle(1000)
 
   useDidUpdate(() => { 
     if(!idle){
@@ -96,7 +96,7 @@ export default function NoteEditorComponent(
   async function handleSave(e?: any) {
     e?.preventDefault()
     setSaving(true)
-    const response = await updateNote({
+    await updateNote({
       ...selectedNote,
       Content: ref.current?.getMarkdown(),
       Title: noteTitle
@@ -134,9 +134,6 @@ export default function NoteEditorComponent(
             onBlur={() => setNoteTitle(localNoteTitle)}
           />
         </div>
-        <div>
-          idle: {idle ? 'true' : 'false'}
-        </div>
         <div className="flex justify-end items-center">
           <Button
             variant={'outline'}
@@ -161,6 +158,7 @@ export default function NoteEditorComponent(
   return (
     <div
       className="h-full w-full max-h-full max-w-full"
+      // style={idle ? { filter: 'blur(2px)' } : {}}
     >
       {loading ?
         <div className="flex justify-center items-center h-full w-full max-h-full max-w-full">

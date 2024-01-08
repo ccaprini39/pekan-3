@@ -37,7 +37,7 @@ export default function ChatComponent() {
     setMessages(newMessages);
   }
 
-  const { messages, input, isLoading, handleInputChange, handleSubmit, stop, setMessages } = useChat({ initialMessages });
+  const { messages, input, isLoading, handleInputChange, handleSubmit, stop, setMessages } = useChat({ initialMessages, api: '/api/chat-with-xata' });
 
   async function removeLastMessage() {
     const messageClone = [...messages];
