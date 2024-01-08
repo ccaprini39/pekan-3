@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     if(message.role === "system"){
       return {
         ...message,
-        content: `${message.content}\nReply to the user about the data in the database, do not reply about other topics.\n
+        content: `${message.content}\nReply to the user about the data in the database, strongly prefer that you reply about the data, but you can respond to any question or conversation.\n
         Only use the functions you have been provided with, and use them in the way they are documented.\n
         For each reference to a document or title you find matching, include the document title and the url.\n
         `
