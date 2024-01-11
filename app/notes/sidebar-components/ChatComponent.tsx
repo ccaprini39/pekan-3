@@ -11,6 +11,7 @@ import { VscArrowLeft, VscArrowRight, VscSend, VscTrash } from "react-icons/vsc"
 import { Input } from "@/components/ui/input";
 import { Undo } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
+import { useLocalStorage } from "@mantine/hooks";
 
 export default function ChatComponent() {
   const defaultMessage = `you are a helpful assistant
@@ -18,6 +19,8 @@ export default function ChatComponent() {
   const [systemMessageContent, setSystemMessageContent] = useState<string>(defaultMessage);
   const [contextVisible, setContextVisible] = useState<boolean>(false);
   const toggleContext = () => setContextVisible(!contextVisible);
+  const [savedMessages, setSavedMessages] = useLocalStorage<string>({ key: 'savedMessages', defaultValue: '' });
+  
   const initialMessages: Message[] = [
     {
       id: 'something',
