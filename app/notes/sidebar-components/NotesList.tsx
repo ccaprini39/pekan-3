@@ -50,7 +50,7 @@ export default function NotesList() {
 
   return (
     <div
-      className="h-full w-full flex flex-col pr-2"
+      className="h-full w-full flex flex-col-reverse pr-2"
     >
       <div
         className='flex flex-row justify-end items-center'
