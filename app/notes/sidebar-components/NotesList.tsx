@@ -14,13 +14,13 @@ export default function NotesList() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    async function loadNotes(){
+    async function loadNotes() {
       const notes = await getAllNoteTitles();
       setShallowNotes(notes);
       setLoading(false);
     }
     loadNotes();
-  },[])
+  }, [])
 
   async function handleFollowLink(e: any) {
     e.preventDefault()
@@ -52,6 +52,16 @@ export default function NotesList() {
     <div
       className="h-full w-full flex flex-col-reverse pr-2"
     >
+      {shallowNotes.map((note: any) => (
+        <a
+          className='hover:bg-gray-900 rounded-md h-8 max-h-8 no-underline text-sm overflow-x-hidden truncate whitespace-nowrap cursor-pointer'
+          key={note.id}
+          id={note.id}
+          onClick={handleFollowLink}
+        >
+          {note.Title}
+        </a>
+      ))}
       <div
         className='flex flex-row justify-end items-center'
       >
@@ -93,16 +103,6 @@ export default function NotesList() {
           <></>
         }
       </div>
-      {shallowNotes.map((note: any) => (
-        <a
-          className='hover:bg-gray-900 rounded-md h-8 max-h-8 no-underline text-sm overflow-x-hidden truncate whitespace-nowrap cursor-pointer'
-          key={note.id}
-          id={note.id}
-          onClick={handleFollowLink}
-        >
-          {note.Title}
-        </a>
-      ))}
     </div>
   )
 }
