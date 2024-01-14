@@ -62,24 +62,6 @@ export default function NotesList() {
           {note.Title}
         </a>
       ))}
-      <div
-        className='flex flex-row justify-end items-center'
-      >
-        <div
-          className='bg-black hover:bg-gray-700 rounded-full p-2 cursor-pointer'
-          onClick={() => setCreatingNote(!creatingNote)}
-        >
-          <VscNewFile />
-        </div>
-        <div>
-          <button
-            className='bg-black hover:bg-gray-700 rounded-full p-2 cursor-pointer'
-            onClick={handleRefresh}
-          >
-            <VscRefresh />
-          </button>
-        </div>
-      </div>
       <div>
         {creatingNote ?
           <form
@@ -103,6 +85,25 @@ export default function NotesList() {
           <></>
         }
       </div>
+      <div
+        className='flex flex-row justify-end items-center'
+      >
+        <div
+          className='bg-black hover:bg-gray-700 rounded-full p-2 cursor-pointer'
+          onClick={() => setCreatingNote(!creatingNote)}
+        >
+          <VscNewFile />
+        </div>
+        <div>
+          <button
+            className='bg-black hover:bg-gray-700 rounded-full p-2 cursor-pointer'
+            onClick={handleRefresh}
+          >
+            <VscRefresh />
+          </button>
+        </div>
+      </div>
+
     </div>
   )
 }
