@@ -305,7 +305,7 @@ export function ChatText({
         <div className="chat-bubble">
           <ChatContent text={message.content} />
         </div>
-        <div className="opacity-50 chat-footer">
+        <div className="ml-auto opacity-50 chat-footer">
           {message.createdAt?.toDateString()}
         </div>
       </div>
