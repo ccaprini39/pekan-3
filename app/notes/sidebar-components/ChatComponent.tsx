@@ -69,7 +69,7 @@ export default function ChatComponent() {
   //what I need to do is load this from the layout, 
   if (contextVisible) return (
     <div
-      className="mx-auto w-full flex flex-col justify-between stretch h-full max-h-full"
+      className="flex flex-col justify-between w-full h-full max-h-full mx-auto stretch"
     >
       <Button
         className='max-h-full'
@@ -87,9 +87,9 @@ export default function ChatComponent() {
   )
 
   return (
-    <div className="mx-auto w-full flex flex-col justify-between stretch h-full max-h-full">
+    <div className="flex flex-col justify-between w-full h-full max-h-full mx-auto stretch">
       <div
-        className='flex flex-row w-full text-xs h-6 py-1 space-between items-center justify-between'
+        className='flex flex-row items-center justify-between w-full h-6 py-1 text-xs space-between'
       >
         <Button
           className='max-h-full'
@@ -114,7 +114,7 @@ export default function ChatComponent() {
         </Button>
       </div>
       <div
-        className="flex-grow flex flex-col overflow-auto w-full max-w-full"
+        className="flex flex-col flex-grow w-full max-w-full overflow-auto"
       >
         <ScrollArea className="w-full max-w-full">
           {messages.map((message, index) => {
@@ -124,7 +124,7 @@ export default function ChatComponent() {
             return (
               <div
                 key={message.id}
-                className='border border-gray-500 rounded p-1 max-w-full w-full'
+                className='w-full max-w-full p-1 border border-gray-500 rounded'
               >
                 <div
                   className='text-sm font-bold opacity-50'
@@ -145,10 +145,10 @@ export default function ChatComponent() {
         onSubmit={handleSubmit}
       >
         <div
-          className="flex w-full items-center h-10 pb-1 text-xs space-x-2"
+          className="flex items-center w-full h-10 pb-1 space-x-2 text-xs"
         >
           <Input
-            className="m-1 h-full text-xs"
+            className="h-full m-1 text-xs"
             value={input}
             onChange={handleInputChange}
           />
@@ -169,7 +169,7 @@ export function ChatContent({ text }: { text: string }) {
 
   return (
     <ReactMarkdown
-      className="text-sm max-w-full w-"
+      className="max-w-full text-sm w-"
       children={text}
       remarkPlugins={[remarkGfm]}
       components={{
@@ -179,7 +179,7 @@ export function ChatContent({ text }: { text: string }) {
             <SyntaxHighlighter
               {...props}
               children={String(children).replace(/\n$/, '')}
-              className="text-sm max-w-full w-full "
+              className="w-full max-w-full text-sm "
               style={atomDark}
               language={match[1]}
               PreTag="div"

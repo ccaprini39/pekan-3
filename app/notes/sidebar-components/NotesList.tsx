@@ -34,7 +34,6 @@ export default function NotesList() {
       Title: newNoteTitle,
       Content: ''
     })
-    alert('created note ' + note.id)
     const newNoteId = note.id;
     setNewNoteTitle('')
     setCreatingNote(false)
@@ -50,11 +49,11 @@ export default function NotesList() {
 
   return (
     <div
-      className="h-full w-full flex flex-col-reverse pr-2"
+      className="flex flex-col-reverse w-full h-full pr-2"
     >
       {shallowNotes.map((note: any) => (
         <a
-          className='hover:bg-gray-900 rounded-md h-8 max-h-8 no-underline text-sm overflow-x-hidden truncate whitespace-nowrap cursor-pointer'
+          className='h-8 overflow-x-hidden text-sm no-underline truncate rounded-md cursor-pointer hover:bg-gray-900 max-h-8 whitespace-nowrap'
           key={note.id}
           id={note.id}
           onClick={handleFollowLink}
@@ -65,16 +64,16 @@ export default function NotesList() {
       <div>
         {creatingNote ?
           <form
-            className='flex flex-row justify-between h-8 items-center'
+            className='flex flex-row items-center justify-between h-8'
           >
             <input
-              className='border w-3/4 border-gray-500 rounded px-2'
+              className='w-3/4 px-2 border border-gray-500 rounded'
               placeholder='New Note Title'
               value={newNoteTitle}
               onChange={(e) => setNewNoteTitle(e.target.value)}
             />
             <button
-              className='border w-1/4 border-gray-500 rounded px-2'
+              className='w-1/4 px-2 border border-gray-500 rounded'
               type='submit'
               onClick={handleCreateNote}
             >
@@ -86,17 +85,17 @@ export default function NotesList() {
         }
       </div>
       <div
-        className='flex flex-row justify-end items-center'
+        className='flex flex-row items-center justify-end'
       >
         <div
-          className='bg-black hover:bg-gray-700 rounded-full p-2 cursor-pointer'
+          className='p-2 bg-black rounded-full cursor-pointer hover:bg-gray-700'
           onClick={() => setCreatingNote(!creatingNote)}
         >
           <VscNewFile />
         </div>
         <div>
           <button
-            className='bg-black hover:bg-gray-700 rounded-full p-2 cursor-pointer'
+            className='p-2 bg-black rounded-full cursor-pointer hover:bg-gray-700'
             onClick={handleRefresh}
           >
             <VscRefresh />
