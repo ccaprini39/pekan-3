@@ -23,6 +23,9 @@ export function Chat() {
     }
   ]
 
+  const Obj : object = 
+
+
   async function saveMessagesToLocalStorage() {
     localStorage.setItem('messages', JSON.stringify(messages));
   }
@@ -104,7 +107,7 @@ export function Chat() {
 
   if (loading) return <p>loading...</p>
   return (
-    <div className="flex flex-col w-7/8 h-full ">
+    <div className="flex flex-col h-full w-7/8 ">
       <div
         className="h-10"
       >
@@ -145,7 +148,7 @@ export function Chat() {
       <div>
         <form className="relative px-5" onSubmit={handleSubmit}>
           <textarea
-            className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 h-full"
+            className="w-full h-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
             name="message"
             rows={3}
             value={input}
@@ -153,7 +156,7 @@ export function Chat() {
             placeholder="type a message"
           />
           <button
-            className="absolute right-6 bottom-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
+            className="absolute px-4 py-2 font-bold text-white bg-blue-500 rounded right-6 bottom-8 hover:bg-blue-700 focus:outline-none focus:shadow-outline "
             type="submit"
           >
             Send
@@ -162,43 +165,43 @@ export function Chat() {
         <div className="flex flex-row justify-center">
 
 
-          <div className="join float-left mx-5">
+          <div className="float-left mx-5 join">
             <button
-              className="btn btn-sm btn-info join-item mx-1 btn-outline "
+              className="mx-1 btn btn-sm btn-info join-item btn-outline "
               onClick={saveMessagesToLocalStorage}
             >
               Save
             </button>
             <button
-              className="btn btn-sm btn-outline btn-warning join-item mx-1"
+              className="mx-1 btn btn-sm btn-outline btn-warning join-item"
               onClick={loadMessagesFromLocalStorage}
             >
               Load
             </button>
           </div>
-          <div className="join mx-auto">
+          <div className="mx-auto join">
             <button
-              className="btn btn-sm btn-outline join-item mx-1"
+              className="mx-1 btn btn-sm btn-outline join-item"
               onClick={removeLastMessage}
             >
               Remove Last Message
             </button>
             <button
-              className="btn btn-sm btn-info join-item mx-1 btn-outline"
+              className="mx-1 btn btn-sm btn-info join-item btn-outline"
               onClick={handleClearMessages}
             >
               Clear
             </button>
           </div>
-          <div className="join float-right mx-5">
+          <div className="float-right mx-5 join">
             <button
-              className="btn btn-sm btn-success join-item mx-1 btn-outline "
+              className="mx-1 btn btn-sm btn-success join-item btn-outline "
               onClick={handleReload}
             >
               Reload
             </button>
             <button
-              className="btn btn-sm btn-outline btn-error join-item mx-1"
+              className="mx-1 btn btn-sm btn-outline btn-error join-item"
               onClick={handleStop}
             >
               Stop
@@ -238,7 +241,7 @@ export function ChatText({ message, last, inProgress, autoPlay }: { message: Mes
     return (
       <div
         ref={ref}
-        className="chat chat-end mx-5"
+        className="mx-5 chat chat-end"
       >
         <div className="chat-header">
           {message.role}
@@ -246,7 +249,7 @@ export function ChatText({ message, last, inProgress, autoPlay }: { message: Mes
         <div className="chat-bubble">
           <ChatContent text={message.content} />
         </div>
-        <div className="chat-footer opacity-50">
+        <div className="opacity-50 chat-footer">
           {message.createdAt?.toDateString()}
         </div>
       </div>
@@ -255,7 +258,7 @@ export function ChatText({ message, last, inProgress, autoPlay }: { message: Mes
     return (
       <div
         ref={ref}
-        className="chat chat-start mx-5"
+        className="mx-5 chat chat-start"
       >
         <div className="chat-header">
           {message.role}
@@ -265,7 +268,7 @@ export function ChatText({ message, last, inProgress, autoPlay }: { message: Mes
             <ChatContent text={message.content} />
           </div>
         </div>
-        <div className="chat-footer flex flex-row opacity-50">
+        <div className="flex flex-row opacity-50 chat-footer">
           {message.createdAt?.toDateString()}
           {!inProgress &&
             <AudioComponent
