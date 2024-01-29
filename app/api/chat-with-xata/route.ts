@@ -1,7 +1,7 @@
 import { ChatCompletionCreateParams } from "openai/resources";
 import { StreamingTextResponse, OpenAIStream } from "ai";
 import { Configuration, OpenAIApi } from "openai-edge";
-import { getXataClient } from "@/xata";
+import { getXataClient } from "@/src/xata";
 
 const xata = getXataClient();
 
