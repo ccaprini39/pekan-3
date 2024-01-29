@@ -3,7 +3,8 @@
 import { Message } from 'ai';
 import { useChat } from 'ai/react'
 import React, { useState, useEffect, FormEvent, useRef } from 'react'
-import { ChatText } from '../chat/client/Chat';
+import { ChatText } from '../chat/client/ChatWithMarkdown';
+
 
 export default function ConversationPage() {
   const sendButtonRef = useRef<HTMLButtonElement>(null);
@@ -100,7 +101,7 @@ export default function ConversationPage() {
 
   return (
     <div
-      className='py-5 h-full flex flex-col justify-between'
+      className='flex flex-col justify-between h-full py-5'
     >
       <div
         className="flex flex-row h-10"
@@ -138,7 +139,7 @@ export default function ConversationPage() {
       <form id='form' className="relative px-5" onSubmit={handleSubmit}>
         <textarea
           id='textarea'
-          className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 h-full"
+          className="w-full h-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
           name="message"
           rows={3}
           value={input}
@@ -148,7 +149,7 @@ export default function ConversationPage() {
         <button
           ref={sendButtonRef}
           id="button"
-          className="absolute right-6 bottom-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
+          className="absolute px-4 py-2 font-bold text-white bg-blue-500 rounded right-6 bottom-8 hover:bg-blue-700 focus:outline-none focus:shadow-outline "
           type="submit"
         >
           Send
