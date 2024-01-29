@@ -222,7 +222,7 @@ export function Chat({
   }, [shallowSystemMessageContent]);
   return (
     <div className="flex flex-col justify-between h-full min-h-full">
-      { showSystemMessage &&
+      {showSystemMessage &&
         (<div className="h-10">
           <input
             className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
@@ -247,7 +247,7 @@ export function Chat({
       <div className="flex flex-row">
         <div className="flex-grow">
           <Textarea
-            className="w-full h-full p-5 text-sm text-gray-800 bg-gray-100 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-gray-400"
+            className="w-full h-full text-sm text-gray-800 bg-gray-100 border-2 border-gray-200 rounded-lg p-2s focus:outline-none focus:border-gray-400"
             value={input}
             rows={1}
             onChange={(e) => setInput(e.target.value)}
@@ -270,19 +270,19 @@ export function Chat({
           <div className="flex flex-row justify-between w-full">
             <Button
               className="max-h-full m-1"
-              variant={"destructive"}
-              size="icon"
-              onClick={resetMessages}
-            >
-              <VscTrash />
-            </Button>
-            <Button
-              className="max-h-full m-1"
               size="icon"
               variant="secondary"
               onClick={removeLastMessage}
             >
               <Undo />
+            </Button>
+            <Button
+              className="max-h-full m-1"
+              variant={"destructive"}
+              size="icon"
+              onClick={resetMessages}
+            >
+              <VscTrash />
             </Button>
           </div>
         </div>
