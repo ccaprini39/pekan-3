@@ -1,0 +1,16 @@
+{
+  "id": "mig_cmnp07ge8e7e5cc6lvs0",
+  "parentID": "mig_cmnovpoe8e7e5cc6lvpg",
+  "checksum": "1:94a0b7435b1785d4220af766b9033c7456bce3a96950ae1b0753c9af218bb2e6",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "currentTokens",
+          "type": "int"
+        },
+        "table": "ChatConversation"
+      }
+    }
+  ]
+}

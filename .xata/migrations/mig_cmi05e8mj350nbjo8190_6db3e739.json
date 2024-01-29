@@ -1,0 +1,13 @@
+{
+  "id": "mig_cmi05e8mj350nbjo8190",
+  "parentID": "mig_cmi056rvv9jpetvg3460",
+  "checksum": "1:6db3e7391eddeefdc080c81b8accd8021130b8400fb0e9c97ab3010bc8a1eec3",
+  "operations": [
+    {
+      "renameTable": {
+        "newName": "Tasks",
+        "oldName": "tasks"
+      }
+    }
+  ]
+}

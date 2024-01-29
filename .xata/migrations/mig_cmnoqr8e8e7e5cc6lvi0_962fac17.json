@@ -1,0 +1,12 @@
+{
+  "id": "mig_cmnoqr8e8e7e5cc6lvi0",
+  "parentID": "mig_cmi05ojqchh4jeq4tvkg",
+  "checksum": "1:962fac17b9efe120ec5aa8c1c7e61c186ab55615e6b91cbed7577c18797440df",
+  "operations": [
+    {
+      "addTable": {
+        "table": "ChatConversation"
+      }
+    }
+  ]
+}

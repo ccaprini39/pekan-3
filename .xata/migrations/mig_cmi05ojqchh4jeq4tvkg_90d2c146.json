@@ -1,0 +1,16 @@
+{
+  "id": "mig_cmi05ojqchh4jeq4tvkg",
+  "parentID": "mig_cmi05jgmj350nbjo81a0",
+  "checksum": "1:90d2c146e213f7be6f1754b558212977767406a46e87562957b0235ae0a0cb13",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "description",
+          "type": "text"
+        },
+        "table": "Tasks"
+      }
+    }
+  ]
+}

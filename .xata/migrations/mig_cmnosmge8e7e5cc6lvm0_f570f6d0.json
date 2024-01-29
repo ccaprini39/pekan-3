@@ -1,0 +1,18 @@
+{
+  "id": "mig_cmnosmge8e7e5cc6lvm0",
+  "parentID": "mig_cmnorsge8e7e5cc6lvl0",
+  "checksum": "1:f570f6d033590c93a885c772eb1c40e37ba5d138551d84e26091c2586a187b52",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "systemMessage",
+          "type": "text",
+          "notNull": true,
+          "defaultValue": "You are a helpful assistant..."
+        },
+        "table": "Assistants"
+      }
+    }
+  ]
+}

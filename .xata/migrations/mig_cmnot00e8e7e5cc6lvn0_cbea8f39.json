@@ -1,0 +1,19 @@
+{
+  "id": "mig_cmnot00e8e7e5cc6lvn0",
+  "parentID": "mig_cmnosmge8e7e5cc6lvm0",
+  "checksum": "1:cbea8f3928c77da809ff45170ffd6af580f75370862207f1d8f9dd794617158d",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "Character",
+          "type": "link",
+          "link": {
+            "table": "Assistants"
+          }
+        },
+        "table": "ChatConversation"
+      }
+    }
+  ]
+}

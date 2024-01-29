@@ -1,0 +1,16 @@
+{
+  "id": "mig_cmnorom42iih018ki4k0",
+  "parentID": "mig_cmnorige8e7e5cc6lvk0",
+  "checksum": "1:8726b28317854ed74460e3d78e574e97ab9fd7b30885af54a517f9ed0e1423c1",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "messages",
+          "type": "json"
+        },
+        "table": "Assistants"
+      }
+    }
+  ]
+}

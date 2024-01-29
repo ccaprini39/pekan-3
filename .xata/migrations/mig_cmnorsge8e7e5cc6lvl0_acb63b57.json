@@ -1,0 +1,13 @@
+{
+  "id": "mig_cmnorsge8e7e5cc6lvl0",
+  "parentID": "mig_cmnorom42iih018ki4k0",
+  "checksum": "1:acb63b57715edd8d497bb26814dfc4b7d3a13b69df752f9227c91b83415f1e4c",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "messages",
+        "table": "Assistants"
+      }
+    }
+  ]
+}

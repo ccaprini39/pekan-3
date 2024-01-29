@@ -1,5 +1,7 @@
 'use server'
-import { getXataClient } from "@/xata"
+
+import { getXataClient } from "@/src/xata";
+
 
 export async function getAllNotes(){
   const xata = getXataClient()

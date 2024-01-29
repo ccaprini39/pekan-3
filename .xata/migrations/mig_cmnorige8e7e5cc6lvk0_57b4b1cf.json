@@ -1,0 +1,18 @@
+{
+  "id": "mig_cmnorige8e7e5cc6lvk0",
+  "parentID": "mig_cmnoqr8e8e7e5cc6lvi0",
+  "checksum": "1:57b4b1cf19fec898c59fe1ec1f049a93cbd7f68243e7c2424c365b1c2ca4176f",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": "Fred"
+        },
+        "table": "Assistants"
+      }
+    }
+  ]
+}

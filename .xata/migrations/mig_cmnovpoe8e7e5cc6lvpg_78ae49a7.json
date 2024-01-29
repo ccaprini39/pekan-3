@@ -1,0 +1,17 @@
+{
+  "id": "mig_cmnovpoe8e7e5cc6lvpg",
+  "parentID": "mig_cmnot00e8e7e5cc6lvn0",
+  "checksum": "1:78ae49a7fbc60e736977e8325810d304c0a0bdba61921455c784bd2ec768648f",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "messages",
+          "type": "json",
+          "defaultValue": "  [\n    {\n      \"id\": \"something\",\n      \"role\": \"system\",\n      \"content\": \"something\",\n      \"createdAt\": \"something\"\n    }\n  ]"
+        },
+        "table": "ChatConversation"
+      }
+    }
+  ]
+}

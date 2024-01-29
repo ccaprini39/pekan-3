@@ -1,6 +1,8 @@
 'use server';
 
-import { getXataClient } from "@/xata";
+import { getXataClient } from "@/src/xata";
+
+
 
 interface CreateNote {
   Content: string;
