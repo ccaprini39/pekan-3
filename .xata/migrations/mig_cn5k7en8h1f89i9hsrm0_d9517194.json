@@ -1,0 +1,16 @@
+{
+  "id": "mig_cn5k7en8h1f89i9hsrm0",
+  "parentID": "mig_cn5k69fkb0okvo54mfq0",
+  "checksum": "1:d95171946794934316cbdfccac20b7aecb41edad6fa19e2d64fc698db3f00883",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "tags",
+          "type": "multiple"
+        },
+        "table": "Tasks"
+      }
+    }
+  ]
+}

@@ -44,8 +44,11 @@ const tables = [
   {
     name: "Tasks",
     columns: [
-      { name: "status", type: "multiple" },
       { name: "description", type: "text" },
+      { name: "status", type: "string" },
+      { name: "tags", type: "multiple" },
+      { name: "deadline", type: "string" },
+      { name: "comments", type: "multiple" },
     ],
   },
   {

@@ -1,0 +1,16 @@
+{
+  "id": "mig_cn5k7iblgne4b0hslq7g",
+  "parentID": "mig_cn5k7en8h1f89i9hsrm0",
+  "checksum": "1:39025c1e6bfde95d5472fe0a2756a03971de115ea832841b8227fe771e62c619",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "deadline",
+          "type": "string"
+        },
+        "table": "Tasks"
+      }
+    }
+  ]
+}
