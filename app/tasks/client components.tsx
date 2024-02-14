@@ -16,6 +16,7 @@ export function CreateTaskForm() {
   const [deadlineValid, setDeadlineValid] = useState<boolean>(false);
 
   const [tags, setTags] = useState<string[]>(['']);
+  const [tagString, setTagString] = useState<string>('');
 
   useEffect(() => {
     setTitleValid(isValidTitle(title));
@@ -32,20 +33,46 @@ export function CreateTaskForm() {
     setTitle('');
     setDescription('');
     setDeadline('');
+    setTags(['']);
+  }
+
+  useEffect(() => {
+    //parse the tag string, split by comma and whitespace
+    const newTags = tagString.split(/, |,/);
+    setTags(newTags);
+  },[tagString])
+
+  function TagDisplay(){
+    return (
+      <div>
+        <label>
+          Tags
+          <input
+            type="text"
+            value={tagString}
+            onChange={(e) => setTagString(e.target.value)}
+          />
+        </label>
+        <ul>
+          {tags.map(tag => (
+            <li key={tag}>{tag}</li>
+          ))}
+        </ul>
+      </div>
+    )
   }
 
   return (
     <form 
       className="flex flex-col"
     >
-      <h1>Create Task</h1>
       <label
         className="flex flex-row w-full m-2" 
       >
         Title
         <input
           type="text"
-          className="flex-grow ml-2 rounded-md"
+          className="flex-grow pl-2 ml-2 rounded-md"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -55,7 +82,7 @@ export function CreateTaskForm() {
       >
         Description
         <textarea
-          className="flex-grow ml-2 rounded-md"
+          className="flex-grow pl-2 ml-2 rounded-md"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
@@ -66,11 +93,12 @@ export function CreateTaskForm() {
         Deadline
         <input
           type="text"
-          className="flex-grow ml-2 rounded-md"
+          className="flex-grow pl-2 ml-2 rounded-md"
           value={deadline}
           onChange={(e) => setDeadline(e.target.value)}
         />
       </label>
+      {/* <TagDisplay /> */}
 
       <Button
         type="submit"
@@ -108,7 +136,6 @@ export function ViewTasksComponent() {
   if (loading) return <div>Loading Tasks...</div>
   return (
     <div>
-      <h1>Tasks</h1>
       <Button
         type="button"
         onClick={getTasks}
