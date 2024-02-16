@@ -373,11 +373,11 @@ and end your response with a related question`;
   });
 
   useDidUpdate(() => {
-    console.log('updated initial messages', messages[0]?.content)
-    const shallowCopy = [...messages];
-    shallowCopy[0].content = initialMessages[0]?.content;
-    setMessages(shallowCopy);
-    //setSystemMessageContent(initialMessages[0]?.content);
+    if (initialMessages) {
+      const shallowCopy = [...messages];
+      shallowCopy[0].content = initialMessages[0]?.content;
+      setMessages(shallowCopy);
+    }
   }, [initialMessages])
 
 
