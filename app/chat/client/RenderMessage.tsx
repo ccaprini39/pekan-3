@@ -12,6 +12,7 @@ import { useDidUpdate } from "@mantine/hooks";
 import { Button } from "@/components/ui/button";
 import { VscSend, VscTrash } from "react-icons/vsc";
 import { Undo } from "lucide-react";
+import { AudioComponent } from "@/app/components/AudioComponent";
 
 export function ChatBubble({
   message,
@@ -23,6 +24,7 @@ export function ChatBubble({
   inProgress: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const autoPlay = true;
   useEffect(() => {
     function scrollToBottom() {
       ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -59,6 +61,15 @@ export function ChatBubble({
             <ChatContent text={message.content} />
           </div>
         </div>
+        {/* {!inProgress && (
+          <AudioComponent
+            string={message.content}
+            voice="alloy"
+            filename="new-speech-3.mp3"
+            defaultOpen={true}
+            autoPlay={last && autoPlay}
+          />
+        )} */}
         <div className="opacity-50">{message.createdAt?.toDateString()}</div>
       </div>
     );
@@ -181,7 +192,7 @@ export function ChatMessages({
             <ChatBubble
               key={i}
               message={message}
-              last={i === messages.length - 1}
+              last={i === 0}
               inProgress={loading}
             />
           ))}
@@ -238,7 +249,7 @@ export function Chat({
             <ChatBubble
               key={i}
               message={message}
-              last={i === messages.length - 1}
+              last={i === 0}
               inProgress={loading}
             />
           ))}
@@ -294,26 +305,21 @@ export function Chat({
 export function ChatPageComponent({
   initialMessages,
   apiEndpoint,
+  systemMessageVisible
 }: {
   initialMessages?: Message[];
   apiEndpoint?: string;
+  systemMessageVisible?: boolean;
 }) {
   const defaultMessage = `you are a helpful assistant performing a role similar to a therapist. 
 You take in input from the user and give a short response that is either reassuring or critical, 
 and end your response with a related question`;
 
   //if there are no initial messages, set the initial messages to the default message
-  if (!initialMessages)
-    initialMessages = [
-      {
-        id: "something",
-        role: "system",
-        content: defaultMessage,
-        createdAt: new Date(),
-      },
-    ];
 
   if (!apiEndpoint) apiEndpoint = "/api/chat";
+
+  if (systemMessageVisible === undefined) systemMessageVisible = true;
 
   const [systemMessageContent, setSystemMessageContent] =
     useState<string>(defaultMessage);
@@ -322,6 +328,7 @@ and end your response with a related question`;
     //if the system message content is not the default message, then set the system message content to the default message
     //This is only the first message, the rest remains unchanged
     //so update the messages to reflect the change
+    console.log('updated system message content')
     const shallowCopy = [...messages];
     shallowCopy[0].content = systemMessageContent;
     setMessages(shallowCopy);
@@ -340,6 +347,17 @@ and end your response with a related question`;
     setMessages(shallowCopy);
   }
 
+  if (!initialMessages) {
+    initialMessages = [
+      {
+        id: "something",
+        role: "system",
+        content: defaultMessage,
+        createdAt: new Date(),
+      },
+    ];
+  }
+
   const {
     messages,
     input,
@@ -354,8 +372,17 @@ and end your response with a related question`;
     api: apiEndpoint,
   });
 
+  useDidUpdate(() => {
+    console.log('updated initial messages', messages[0]?.content)
+    const shallowCopy = [...messages];
+    shallowCopy[0].content = initialMessages[0]?.content;
+    setMessages(shallowCopy);
+    //setSystemMessageContent(initialMessages[0]?.content);
+  }, [initialMessages])
+
+
   return (
-    <div className="w-screen h-screen p-5">
+    <div className="w-full h-full">
       <Chat
         messages={messages}
         loading={isLoading}
@@ -366,8 +393,14 @@ and end your response with a related question`;
         onSubmit={handleSubmit}
         resetMessages={resetMessages}
         removeLastMessage={removeLastMessage}
-        showSystemMessage={true}
+        showSystemMessage={systemMessageVisible}
       />
+      {/* <div>
+        {initialMessages[0]?.content}
+      </div>
+      <div>
+        {messages[0]?.content}
+      </div> */}
     </div>
   );
 }

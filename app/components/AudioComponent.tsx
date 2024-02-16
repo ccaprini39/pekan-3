@@ -23,7 +23,7 @@ export function AudioComponent({ string, voice, filename, defaultOpen, autoPlay 
   useEffect(() => {
     if (!loading && autoPlay) {
       const audio = document.getElementById('audio') as HTMLAudioElement
-      audio.play()
+      audio?.play()
     }
   }, [loading, autoPlay])
 
@@ -38,7 +38,7 @@ export function AudioComponent({ string, voice, filename, defaultOpen, autoPlay 
     >
       {open &&
         <button
-          className='bg-red-500 hover:bg-red-700 w-5 h-5 text-white font-bold rounded shadow focus:outline-none focus:shadow-outline'
+          className='w-5 h-5 font-bold text-white bg-red-500 rounded shadow hover:bg-red-700 focus:outline-none focus:shadow-outline'
           onClick={() => setOpen(false)}
         >
           x
@@ -47,7 +47,7 @@ export function AudioComponent({ string, voice, filename, defaultOpen, autoPlay 
       {!open &&
         <button
           title="Click to open audio"
-          className='relative bg-grey-500 hover:bg-grey-700 w-5 h-5 text-white font-bold rounded shadow focus:outline-none focus:shadow-outline'
+          className='relative w-5 h-5 font-bold text-white rounded shadow bg-grey-500 hover:bg-grey-700 focus:outline-none focus:shadow-outline'
           onClick={() => setOpen(true)}
         >
           {">"}
@@ -59,17 +59,13 @@ export function AudioComponent({ string, voice, filename, defaultOpen, autoPlay 
         <div>Loading...</div>
       }
 
-      {
-        open && !loading &&
-        <MinimalistAudioComponent src={speechUrl} />
-
-      }
+      <MinimalistAudioComponent src={speechUrl} loading={loading} />
 
     </div>
   )
 }
 
-function MinimalistAudioComponent({ src }: { src: string }) {
+function MinimalistAudioComponent({ src, loading }: { src: string, loading?: boolean}) {
   const audioRef = React.useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [duration, setDuration] = React.useState(0);
@@ -116,7 +112,9 @@ function MinimalistAudioComponent({ src }: { src: string }) {
   };
 
   return (
-    <div >
+    <div 
+      className={loading ? 'hidden' : ''}
+    >
       <button onClick={togglePlayPause}>{isPlaying ? 'Pause' : 'Play'}</button>
       <input type="range" min="0" max={duration} value={currentTime} onChange={onSliderChange} />
       <audio ref={audioRef} src={src} />
