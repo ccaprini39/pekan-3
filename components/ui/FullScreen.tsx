@@ -1,8 +1,6 @@
 'use client'
 
 import { useFullscreen } from '@mantine/hooks';
-import { useEffect, useState } from 'react';
-import { Toggle } from './toggle';
 import { Button } from './button';
 import { Expand, Maximize, Minimize, Shrink } from 'lucide-react';
 

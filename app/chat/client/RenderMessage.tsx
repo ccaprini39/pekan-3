@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Message } from "ai";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -12,7 +12,6 @@ import { useDidUpdate } from "@mantine/hooks";
 import { Button } from "@/components/ui/button";
 import { VscSend, VscTrash } from "react-icons/vsc";
 import { Undo } from "lucide-react";
-import { AudioComponent } from "@/app/components/AudioComponent";
 
 export function ChatBubble({
   message,

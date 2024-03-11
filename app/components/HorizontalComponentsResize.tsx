@@ -4,11 +4,9 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
-import { is } from "@xata.io/client"
 import React from "react"
 
 export default function HorizontalComponentsResize({children}: {children: any[]}) {
-
   return (
     <ResizablePanelGroup
       direction="horizontal"
